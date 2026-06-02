@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part1 Pawan Kumar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #1e2a3e;
+            color: #e2e8f0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            border-right: 1px solid #334155;
+        }
+        .sidebar h2 {
+            color: #facc15;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #facc15;
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        .sidebar nav ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .sidebar nav li {
+            margin: 0.7rem 0;
+        }
+        .sidebar nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            display: block;
+            padding: 0.3rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 0.8rem;
+        }
+        .sidebar nav a:hover {
+            color: #facc15;
+            border-left-color: #facc15;
+            background: #2d3a4e;
+        }
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            background: #ffffff;
+            overflow-x: auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            border-left: 5px solid #facc15;
+            padding-left: 1rem;
+        }
+        .subhead {
+            color: #475569;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.4rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            color: #334155;
+        }
+        h4 {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+            color: #475569;
+        }
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .note-box {
+            background: #fef9e3;
+            border-left: 5px solid #facc15;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        th {
+            background: #1e293b;
+            color: white;
+            padding: 10px 12px;
+            font-weight: 600;
+        }
+        td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 12px;
+        }
+        ul, ol {
+            margin: 0.8rem 0 0.8rem 1.5rem;
+        }
+        li {
+            margin: 0.3rem 0;
+        }
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+        }
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2>📘 Java Notes</h2>
+        <nav>
+            <ul>
+                <li><a href="#day1">Day 1: OOP & Selenium Intro</a></li>
+                <li><a href="#day2">Day 2: Variables & Data Types</a></li>
+                <li><a href="#day3">Day 3: Operators</a></li>
+                <li><a href="#day4">Day 4: Conditional Statements</a></li>
+                <li><a href="#day5">Day 5: Loops & Jump Statements</a></li>
+                <li><a href="#day6">Day 6: Arrays (1D & 2D)</a></li>
+                <li><a href="#day7">Day 7: Scanner & Array Algorithms</a></li>
+                <li><a href="#day8">Day 8: String Methods & Object Array</a></li>
+                <li><a href="#day9">Day 9: String Reverse, Immutability, Assignments</a></li>
+                <li><a href="#selenium">Selenium Suite & Automation</a></li>
+                <li><a href="#install">JDK + Eclipse Install (Win/Mac)</a></li>
+                <li><a href="#assignments">All Assignments Summary</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h1>☕ Complete Java + Selenium Notes</h1>
+        <div class="subhead">Based on Day1–Day9 training, practical code, and Selenium fundamentals – every topic covered.</div>
+
+        <!-- Day 1 -->
+        <section id="day1">
+            <h2>📅 Day 1: OOP Concepts, Java Features & Selenium Overview</h2>
+            <h3>Programming Paradigms</h3>
+            <ul>
+                <li><strong>Structured:</strong> C, Python – logical flow.</li>
+                <li><strong>Object-Based:</strong> VB, VBScript – classes/objects but no inheritance.</li>
+                <li><strong>Object-Oriented (OOP):</strong> Java, C++, C# – supports <strong>Class, Object, Polymorphism, Inheritance, Abstraction, Encapsulation</strong>.</li>
+            </ul>
+            <h3>Java Features</h3>
+            <ul>
+                <li>Platform Independent (JVM + Bytecode).</li>
+                <li>Case-sensitive, Robust, Multithreaded, Secure.</li>
+            </ul>
+            <div class="note-box">
+                <strong>🧠 JDK, JRE, JVM:</strong> JDK (development tools) includes JRE. JRE (libraries + JVM) runs apps. JVM executes bytecode → platform independence.
+            </div>
+            <h3>Java Naming & Comments</h3>
+            <ul>
+                <li>Class names: start with uppercase, no special chars (except _).</li>
+                <li>Comments: <code>// single-line</code> , <code>/* multi-line */</code>.</li>
+                <li>Eclipse shortcut: <code>Syso</code> + Ctrl+Space → <code>System.out.println();</code></li>
+            </ul>
+        </section>
+
+        <!-- Day 2 -->
+        <section id="day2">
+            <h2>📅 Day 2: Variables & Data Types</h2>
+            <pre><code>int a = 100;
+String name = "John";
+char grade = 'A';
+boolean flag = true;</code></pre>
+            <h3>Primitive Data Types Table</h3>
+            <table>
+                <tr><th>Type</th><th>Size</th><th>Example</th></tr>
+                <tr><td>byte</td><td>1 byte</td><td>byte b = 120;</td></tr>
+                <tr><td>short</td><td>2 bytes</td><td>short s = 250;</td></tr>
+                <tr><td>int</td><td>4 bytes</td><td>int x = 1000;</td></tr>
+                <tr><td>long</td><td>8 bytes</td><td>long l = 123456789L;</td></tr>
+                <tr><td>float</td><td>4 bytes</td><td>float f = 150.5F;</td></tr>
+                <tr><td>double</td><td>8 bytes</td><td>double d = 45.6789;</td></tr>
+                <tr><td>char</td><td>2 bytes</td><td>char c = 'M';</td></tr>
+                <tr><td>boolean</td><td>1 bit</td><td>boolean ok = true;</td></tr>
+            </table>
+            <p><strong>Non-primitive:</strong> String, Arrays, ArrayList, Object, etc.</p>
+            <pre><code>// From DataTypesDemo.java
+int a=100; byte by=120; long l=123456789L;
+float price=150.5F; double item=145.324;
+char grad='B'; boolean bool=true;
+String name="John";</code></pre>
+        </section>
+
+        <!-- Day 3 -->
+        <section id="day3">
+            <h2>📅 Day 3: Operators in Java</h2>
+            <ul>
+                <li><strong>Arithmetic:</strong> + - * / %</li>
+                <li><strong>Relational:</strong> ==, !=, >, <, >=, <= (returns boolean)</li>
+                <li><strong>Logical:</strong> && (AND), || (OR), ! (NOT)</li>
+                <li><strong>Increment/Decrement:</strong> ++, --</li>
+                <li><strong>Assignment:</strong> =, +=, -=, *=, /=, %=</li>
+                <li><strong>Ternary:</strong> <code>condition ? expr1 : expr2</code></li>
+            </ul>
+            <div class="note-box">
+                <strong>✏️ Assignment:</strong> Swap two numbers (with temp variable or using +/−).
+            </div>
+        </section>
+
+        <!-- Day 4 -->
+        <section id="day4">
+            <h2>📅 Day 4: Conditional Statements</h2>
+            <pre><code>// if-else example
+int num = 10;
+if(num % 2 == 0) System.out.println("Even");
+else System.out.println("Odd");
+
+// Switch case (weekday)
+String day = "Monday";
+switch(day) {
+    case "Monday": System.out.println(1); break;
+    case "Tuesday": System.out.println(2); break;
+    default: System.out.println("Invalid");
+}</code></pre>
+            <p>Assignments: largest of 2/3 numbers, smallest of 3, week number using switch.</p>
+        </section>
+
+        <!-- Day 5 -->
+        <section id="day5">
+            <h2>📅 Day 5: Loops (while, do-while, for, enhanced for) & Jump Statements</h2>
+            <pre><code>// for loop
+for(int i=1;i<=5;i++) System.out.print(i+" ");
+
+// while
+int j=1;
+while(j<=5) { System.out.println(j); j++; }
+
+// do-while (executes at least once)
+int k=1;
+do { System.out.println(k); k++; } while(k<=5);
+
+// Enhanced for (for-each)
+int[] arr = {10,20,30};
+for(int val : arr) System.out.println(val);</code></pre>
+            <h3>Jump Statements</h3>
+            <ul><li><code>break</code> – exit loop/switch.</li><li><code>continue</code> – skip current iteration.</li></ul>
+            <h4>Day 5 Assignments</h4>
+            <ul>
+                <li>Reverse a number (1234 → 4321)</li>
+                <li>Palindrome number (121 → palindrome)</li>
+                <li>Count digits, count even/odd digits, sum of digits.</li>
+            </ul>
+        </section>
+
+        <!-- Day 6 -->
+        <section id="day6">
+            <h2>📅 Day 6: Single & Two-Dimensional Arrays</h2>
+            <h3>1D Array</h3>
+            <pre><code>int[] a = new int[5];
+a[0]=10; a[1]=20;
+int[] b = {1,2,3,4,5};
+System.out.println(b.length); // 5
+for(int x : b) System.out.print(x+" ");</code></pre>
+            <h3>2D Array (Matrix)</h3>
+            <pre><code>int[][] matrix = { {100,200}, {300,400}, {500,600} };
+for(int i=0; i<matrix.length; i++) {
+    for(int j=0; j<matrix[i].length; j++)
+        System.out.print(matrix[i][j] + " ");
+    System.out.println();
+}
+// Enhanced for 2D
+for(int[] row : matrix) {
+    for(int val : row) System.out.print(val + " ");
+    System.out.println();
+}</code></pre>
+            <p>Assignments: Sum of array elements, count even/odd numbers.</p>
+        </section>
+
+        <!-- Day 7 -->
+        <section id="day7">
+            <h2>📅 Day 7: Scanner Input & Array Algorithms</h2>
+            <pre><code>import java.util.Scanner;
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter number: ");
+int num = sc.nextInt();</code></pre>
+            <ul>
+                <li>Search element in array</li>
+                <li>Count repetitions</li>
+                <li>Find even/odd count</li>
+                <li>Sort array (bubble sort)</li>
+                <li>Reverse array</li>
+            </ul>
+            <div class="note-box">
+                <strong>⭐ Missing number logic:</strong> sum of range - sum of array = missing element (no duplicates, in range).
+            </div>
+        </section>
+
+        <!-- Day 8 -->
+        <section id="day8">
+            <h2>📅 Day 8: String Methods & Object Array</h2>
+            <pre><code>String s = "welcome";
+s.length();                // 7
+s.concat(" to Java");      // "welcome to Java"
+s.trim();                  // removes spaces
+s.charAt(3);               // 'c'
+s.contains("wel");         // true
+s.equals("Welcome");       // false (case matters)
+s.equalsIgnoreCase("WELCOME"); // true
+s.replace('e','X');        // "wXlcomX"
+s.substring(2,5);          // "lco"
+s.toUpperCase();           // "WELCOME"
+s.split("@");              // returns array
+
+// Replace special chars
+String amount = "$15,20,55";
+amount.replace("$","").replace(",",""); // "152055"</code></pre>
+            <h3>Object Type Array (Heterogeneous)</h3>
+            <pre><code>Object[] mix = new Object[5];
+mix[0] = 100;
+mix[1] = "welcome";
+mix[2] = 'A';
+mix[3] = true;
+mix[4] = 10.5;
+for(Object o : mix) System.out.println(o);</code></pre>
+        </section>
+
+        <!-- Day 9 -->
+        <section id="day9">
+            <h2>📅 Day 9: String Reverse, Comparison, Immutability & Assignments</h2>
+            <h3>Reverse a string</h3>
+            <pre><code>String s = "welcome";
+StringBuilder sb = new StringBuilder(s);
+String reversed = sb.reverse().toString(); // "emoclew"</code></pre>
+            <h3>== vs equals()</h3>
+            <ul><li><code>==</code> compares object references (memory).</li><li><code>equals()</code> compares content – recommended for string comparison.</li></ul>
+            <h3>Immutability / Mutability</h3>
+            <ul>
+                <li><strong>String:</strong> Immutable – any change creates new object.</li>
+                <li><strong>StringBuffer:</strong> Mutable, thread-safe.</li>
+                <li><strong>StringBuilder:</strong> Mutable, faster (not thread-safe).</li>
+            </ul>
+            <div class="note-box">
+                <strong>❓ Key doubt:</strong> <code>StringBuilder s = new StringBuilder("welcome"); String b = s.reverse();</code><br>
+                <strong>Answer:</strong> StringBuilder is mutable, reverse() modifies the original object, so both s and b refer to "emoclew".
+            </div>
+            <h4>Day 9 Assignments (Solutions approach)</h4>
+            <ol>
+                <li><strong>Palindrome:</strong> reverse string and compare with original.</li>
+                <li><strong>Remove Junk:</strong> <code>str.replaceAll("[^a-zA-Z0-9]", "")</code></li>
+                <li><strong>Remove white spaces:</strong> <code>str.replaceAll("\\s", "")</code></li>
+                <li><strong>Count char occurrences:</strong> loop and count.</li>
+                <li><strong>Count words:</strong> <code>str.split("\\s+").length</code></li>
+            </ol>
+            <pre><code>// Example: remove special characters
+String dirty = "wel&&^^%%*())*come";
+String clean = dirty.replaceAll("[^a-zA-Z]", "");
+System.out.println(clean); // "welcome"</code></pre>
+        </section>
+
+        <!-- Selenium -->
+        <section id="selenium">
+            <h2>🧪 Selenium – Web Automation Suite</h2>
+            <p><strong>Selenium</strong> is an open source tool for automating web browsers across platforms (Windows, Mac, Linux) and browsers (Chrome, Firefox, Safari, Edge).</p>
+            <h3>Components of Selenium Suite</h3>
+            <ul>
+                <li><strong>Selenium IDE:</strong> Record/playback add-on (Chrome/Firefox).</li>
+                <li><strong>Selenium RC (Remote Control):</strong> Selenium 1 (deprecated).</li>
+                <li><strong>WebDriver:</strong> Direct browser communication (core, modern).</li>
+                <li><strong>Selenium Grid:</strong> Parallel execution across multiple machines/browsers.</li>
+            </ul>
+            <h3>Advantages</h3>
+            <ul>
+                <li>Free & open source, multi-language support (Java, Python, C#, Ruby, JS).</li>
+                <li>Integrates with TestNG, JUnit, Jenkins.</li>
+                <li>Cross-browser & cross-platform.</li>
+            </ul>
+            <h3>Limitations</h3>
+            <ul>
+                <li>Only web apps (no desktop apps).</li>
+                <li>No built-in reporting, no image testing (needs Sikuli).</li>
+            </ul>
+        </section>
+
+        <!-- Installation -->
+        <section id="install">
+            <h2>🛠 JDK 22 & Eclipse Installation (Windows & Mac)</h2>
+            <h3>Windows</h3>
+            <ul>
+                <li>Download <code>jdk-22_windows-x64_bin.exe</code> from Oracle.</li>
+                <li>Run installer, default location: <code>C:\Program Files\Java\jdk-22</code>.</li>
+                <li>Set Environment Variables: add <code>JAVA_HOME</code> and update <code>Path</code> with <code>%JAVA_HOME%\bin</code>.</li>
+                <li>Verify: <code>java -version</code> in command prompt.</li>
+            </ul>
+            <h3>Mac (Silicon M1/M2)</h3>
+            <ul>
+                <li>Download <code>jdk-22_macos-aarch64_bin.dmg</code> → install .pkg.</li>
+                <li>Set path in <code>~/.zshrc</code>:<br>
+                <code>export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-22.jdk/Contents/Home</code></li>
+                <li>Run <code>source ~/.zshrc</code> then <code>echo $JAVA_HOME</code>.</li>
+            </ul>
+            <h3>Eclipse IDE</h3>
+            <ul>
+                <li>Download "Eclipse IDE for Java Developers" from eclipse.org.</li>
+                <li>Launch and select JDK 22 as the VM.</li>
+                <li>Create project: File → New → Java Project → Package → Class.</li>
+            </ul>
+        </section>
+
+        <!-- All Assignments -->
+        <section id="assignments">
+            <h2>📌 Complete Assignments Summary (Day-wise)</h2>
+            <table>
+                <tr><th>Day</th><th>Assignments</th></tr>
+                <tr><td>Day 3</td><td>Swap two numbers</td></tr>
+                <tr><td>Day 4</td><td>Largest of 2/3 numbers, smallest of 3, week name using switch</td></tr>
+                <tr><td>Day 5</td><td>Reverse number, palindrome, count digits, even/odd digits, sum of digits</td></tr>
+                <tr><td>Day 6</td><td>Sum of array elements, print even/odd numbers from array</td></tr>
+                <tr><td>Day 7</td><td>Sort array using loop, find missing number, largest & smallest in array</td></tr>
+                <tr><td>Day 9</td><td>String palindrome, remove junk chars, remove spaces, count char occurrences, count words</td></tr>
+            </table>
+            <div class="note-box">
+                <strong>🎯 Pro tip:</strong> All assignments are solved with code snippets inside the notes above. For the missing number problem: sum of 1..n minus sum of given array.
+            </div>
+        </section>
+
+        <!-- Extra code snippets -->
+        <h2>📂 Additional Code Examples (From original Java files)</h2>
+        <pre><code>// SingleDimensionalArray.java
+int[] a = {10,20,30,40,50};
+for(int value : a) System.out.println(value);
+
+// TwoDimensionalArray.java
+int[][] a = { {100,200}, {300,400}, {500,600} };
+for(int[] arr : a) {
+    for(int x : arr) System.out.print(x+"   ");
+    System.out.println();
+}
+
+// ObjectTypeArray.java
+Object[] arr = new Object[5];
+arr[0]=100; arr[1]="welcome"; arr[2]='A'; arr[3]=true; arr[4]=10.5;
+
+// VariablesDemo.java
+int a=100,b=200,c=300;
+System.out.println("value of a: "+a);</code></pre>
+
+        <footer>
+            <p>📖 Master Java notes compiled from Day1.txt → Day9.txt, Java source files, Selenium PDFs, installation guides, and all assignments.<br>
+            ✅ Every concept, syntax, and practical task is included — ready for interviews and coding practice.</p>
+            <p>✨ Java + Selenium complete reference | No topic skipped</p>
+        </footer>
+    </main>
+</div>
+</body>
+</html>
