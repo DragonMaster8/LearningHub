@@ -299,8 +299,7 @@
 
     <script>
         (function() {
-            // ========== AUTHENTICATION CONFIGURATION ==========Use Chatgpt to get pass
-
+            // ========== AUTHENTICATION CONFIGURATION ==========
             // 🔐 Current password: notes123
             //    To change it, replace PASSWORD_HASH with the SHA‑256 of your new password.
             //    Use the browser console: crypto.subtle.digest('SHA-256', new TextEncoder().encode('your_password'))
@@ -308,36 +307,35 @@
             const PASSWORD_HASH = '717e5bbdad33ca4d119b7cf28fd6fa3317fd1bb2cbd108b54d0abb254392460f'; // hash for "notes123"
             const SESSION_KEY = 'notesHubAuthenticated';
 
-            // ========== NOTES DATA ==========
+            // ========== NOTES DATA (Updated Topics) ==========
             const notesData = [
-                { id:1, title:'JavaScript Fundamentals', desc:'Core concepts: variables, data types, functions, scope, hoisting, closures.', category:'javascript', icon:'🟨', link:'notes/js-fundamentals.html', date:'2024-09-15', tags:['ES6','basics','functions'] },
-                { id:2, title:'Async JavaScript & Promises', desc:'Callbacks, Promises, async/await, event loop, microtasks.', category:'javascript', icon:'⏳', link:'notes/async-js.html', date:'2024-10-02', tags:['async','promises','event-loop'] },
-                { id:3, title:'JavaScript DOM Manipulation', desc:'Selecting elements, events, DOM traversal, dynamic updates.', category:'javascript', icon:'🌐', link:'notes/js-dom.html', date:'2024-10-20', tags:['DOM','events','browser'] },
-                { id:4, title:'JavaScript Design Patterns', desc:'Module, Singleton, Observer, Factory patterns with examples.', category:'javascript', icon:'🧩', link:'notes/js-patterns.html', date:'2024-11-05', tags:['patterns','advanced'] },
-                { id:5, title:'Python Basics & Syntax', desc:'Variables, loops, conditionals, list comprehensions, Pythonic idioms.', category:'python', icon:'🐍', link:'notes/python-basics.html', date:'2024-08-10', tags:['basics','syntax'] },
-                { id:6, title:'Python Data Structures', desc:'Lists, tuples, dicts, sets, queues, performance characteristics.', category:'python', icon:'📊', link:'notes/python-ds.html', date:'2024-09-01', tags:['data-structures','lists'] },
-                { id:7, title:'Python for Data Science', desc:'NumPy, Pandas, Matplotlib basics for analysis & visualization.', category:'python', icon:'📈', link:'notes/python-ds.html', date:'2024-11-18', tags:['numpy','pandas'] },
-                { id:8, title:'CSS Flexbox & Grid Mastery', desc:'Complete guide to modern CSS layout with Flexbox and Grid.', category:'css', icon:'🎨', link:'notes/css-layout.html', date:'2024-07-22', tags:['flexbox','grid','layout'] },
-                { id:9, title:'CSS Animations & Transitions', desc:'Keyframes, transitions, easing functions, performance tips.', category:'css', icon:'✨', link:'notes/css-animations.html', date:'2024-08-28', tags:['animations','transitions'] },
-                { id:10, title:'Responsive Web Design', desc:'Media queries, mobile-first, fluid typography, responsive images.', category:'css', icon:'📱', link:'notes/responsive.html', date:'2024-09-30', tags:['responsive','media-queries'] },
-                { id:11, title:'React Components & Props', desc:'Functional components, props drilling, composition patterns.', category:'react', icon:'⚛️', link:'notes/react-components.html', date:'2024-10-10', tags:['components','props','jsx'] },
-                { id:12, title:'React Hooks Deep Dive', desc:'useState, useEffect, useContext, useReducer, custom hooks.', category:'react', icon:'🪝', link:'notes/react-hooks.html', date:'2024-11-01', tags:['hooks','state'] },
-                { id:13, title:'React Router & Navigation', desc:'Client-side routing, dynamic routes, nested routes.', category:'react', icon:'🧭', link:'notes/react-router.html', date:'2024-11-22', tags:['router','SPA'] },
-                { id:14, title:'SQL Fundamentals', desc:'SELECT, JOINs, subqueries, indexes, query optimization.', category:'database', icon:'🗄️', link:'notes/sql.html', date:'2024-06-15', tags:['SQL','queries','joins'] },
-                { id:15, title:'MongoDB & NoSQL Concepts', desc:'Document model, CRUD, aggregation pipeline, indexing.', category:'database', icon:'🍃', link:'notes/mongodb.html', date:'2024-07-30', tags:['mongodb','nosql'] },
-                { id:16, title:'Git & Version Control', desc:'Branches, merges, rebase, stash, GitHub workflows.', category:'devops', icon:'🔧', link:'notes/git.html', date:'2024-05-20', tags:['git','github'] },
-                { id:17, title:'Docker & Containerization', desc:'Dockerfiles, images, containers, docker-compose.', category:'devops', icon:'🐳', link:'notes/docker.html', date:'2024-10-28', tags:['docker','containers'] },
-                { id:18, title:'Data Structures & Algorithms', desc:'Arrays, linked lists, trees, graphs, sorting, searching, Big O.', category:'algorithms', icon:'🧠', link:'notes/dsa.html', date:'2024-04-12', tags:['DSA','big-o'] }
+                { id:1, title:'Selenium WebDriver Basics', desc:'Setting up WebDriver, browser commands, locating elements, first script.', category:'selenium', icon:'🌐', link:'notes/selenium-webdriver-basics.html', date:'2024-01-10', tags:['webdriver','browser','locators'] },
+                { id:2, title:'Selenium Locators Deep Dive', desc:'ID, name, XPath, CSS selectors, relative locators, best practices.', category:'selenium', icon:'🔍', link:'notes/selenium-locators.html', date:'2024-02-15', tags:['xpath','css','selectors'] },
+                { id:3, title:'Handling Web Elements with Selenium', desc:'Checkboxes, radio buttons, dropdowns, alerts, frames, waits.', category:'selenium', icon:'🖱️', link:'notes/selenium-web-elements.html', date:'2024-03-20', tags:['waits','alerts','frames'] },
+                { id:4, title:'Selenium Grid & Parallel Testing', desc:'Setting up Grid, running tests in parallel, configuration, scaling.', category:'selenium', icon:'⚡', link:'notes/selenium-grid.html', date:'2024-04-12', tags:['grid','parallel','hub'] },
+                { id:5, title:'Java Fundamentals for Testers', desc:'OOP concepts, data types, control flow, exception handling.', category:'java', icon:'☕', link:'notes/java-fundamentals.html', date:'2024-01-05', tags:['oop','basics','syntax'] },
+                { id:6, title:'Java Collections Framework', desc:'Lists, sets, maps, iterators, sorting, and common use in automation.', category:'java', icon:'🗃️', link:'notes/java-collections.html', date:'2024-02-18', tags:['arraylist','hashmap','streams'] },
+                { id:7, title:'Java File Handling & I/O', desc:'Reading/writing files, properties files, Excel/CSV parsing for test data.', category:'java', icon:'📄', link:'notes/java-file-io.html', date:'2024-04-02', tags:['io','properties','csv'] },
+                { id:8, title:'Unix/Linux Commands for QA', desc:'Navigating file system, permissions, process management, grep, awk, sed.', category:'unix', icon:'🐧', link:'notes/unix-commands-qa.html', date:'2024-03-01', tags:['bash','shell','scripting'] },
+                { id:9, title:'Shell Scripting for Automation', desc:'Writing .sh scripts, variables, loops, cron jobs, error handling.', category:'unix', icon:'📜', link:'notes/shell-scripting.html', date:'2024-04-10', tags:['bash','automation','cron'] },
+                { id:10, title:'DevOps Culture & Practices', desc:'CI/CD principles, collaboration, tools overview, monitoring.', category:'devops', icon:'🔄', link:'notes/devops-culture.html', date:'2024-01-28', tags:['ci/cd','agile','collaboration'] },
+                { id:11, title:'CI/CD with Jenkins', desc:'Pipeline as code, job creation, integration with Git, automated builds.', category:'devops', icon:'🔧', link:'notes/jenkins-cicd.html', date:'2024-03-12', tags:['jenkins','pipeline','groovy'] },
+                { id:12, title:'Docker for Test Environments', desc:'Containerization, Dockerfile, docker-compose, running Selenium in containers.', category:'devops', icon:'🐳', link:'notes/docker-test-env.html', date:'2024-05-06', tags:['docker','containers','grid'] },
+                { id:13, title:'Introduction to API Testing', desc:'REST vs SOAP, HTTP methods, status codes, Postman basics.', category:'api-testing', icon:'🔗', link:'notes/api-testing-intro.html', date:'2024-02-05', tags:['rest','http','postman'] },
+                { id:14, title:'API Test Automation with REST Assured', desc:'Setting up REST Assured, request/response validation, JSON/XML parsing.', category:'api-testing', icon:'🧪', link:'notes/rest-assured.html', date:'2024-04-22', tags:['restassured','java','json'] },
+                { id:15, title:'Advanced API Testing Techniques', desc:'Authentication, OAuth2, chaining requests, schema validation.', category:'api-testing', icon:'🔐', link:'notes/api-advanced.html', date:'2024-06-01', tags:['oauth','schema','headers'] },
+                { id:16, title:'Testing Fundamentals', desc:'SDLC, STLC, test levels, test types, black-box vs white-box.', category:'testing-basics', icon:'📋', link:'notes/testing-fundamentals.html', date:'2024-01-15', tags:['sdlc','stlc','types'] },
+                { id:17, title:'Test Case Design Techniques', desc:'Equivalence partitioning, boundary value analysis, decision tables.', category:'testing-basics', icon:'✏️', link:'notes/test-design.html', date:'2024-03-08', tags:['testcase','bva','ecp'] },
+                { id:18, title:'Defect Life Cycle & Management', desc:'Bug reporting, severity vs priority, JIRA workflow, root cause analysis.', category:'testing-basics', icon:'🐞', link:'notes/defect-management.html', date:'2024-05-20', tags:['bug','jira','severity'] }
             ];
 
             const categoryColors = {
-                javascript: { dot:'#f59e0b', cardAccent:'accent-amber', iconBg:'amber' },
-                python:     { dot:'#3b82f6', cardAccent:'accent-blue', iconBg:'blue' },
-                css:        { dot:'#ec4899', cardAccent:'accent-pink', iconBg:'pink' },
-                react:      { dot:'#6366f1', cardAccent:'accent-indigo', iconBg:'indigo' },
-                database:   { dot:'#10b981', cardAccent:'accent-green', iconBg:'green' },
-                devops:     { dot:'#14b8a6', cardAccent:'accent-teal', iconBg:'teal' },
-                algorithms: { dot:'#ef4444', cardAccent:'accent-red', iconBg:'red' }
+                selenium:        { dot:'#10b981', cardAccent:'accent-green', iconBg:'green' },
+                java:            { dot:'#f59e0b', cardAccent:'accent-amber', iconBg:'amber' },
+                unix:            { dot:'#3b82f6', cardAccent:'accent-blue', iconBg:'blue' },
+                devops:          { dot:'#8b5cf6', cardAccent:'accent-purple', iconBg:'purple' },
+                'api-testing':   { dot:'#ec4899', cardAccent:'accent-pink', iconBg:'pink' },
+                'testing-basics':{ dot:'#ef4444', cardAccent:'accent-red', iconBg:'red' }
             };
 
             // ========== DOM REFS ==========
@@ -391,7 +389,7 @@
             }
 
             loginBtn.addEventListener('click', async () => {
-                const password = passwordInput.value.trim();  // Trim fix
+                const password = passwordInput.value.trim();
                 if (!password) {
                     loginError.textContent = 'Please enter a password.';
                     return;
@@ -444,7 +442,7 @@
                     btn.setAttribute('data-category', cat);
                     btn.innerHTML = `
                         <span class="cat-dot" style="background:${colors.dot};"></span>
-                        ${cat.charAt(0).toUpperCase() + cat.slice(1)}
+                        ${cat.charAt(0).toUpperCase() + cat.slice(1).replace('-',' ')}
                         <span class="badge">${count}</span>
                     `;
                     sidebar.appendChild(btn);
@@ -521,8 +519,15 @@
                     });
                 }
 
-                const emojiMap = { javascript:'🟨', python:'🐍', css:'🎨', react:'⚛️', database:'🗄️', devops:'🔧', algorithms:'🧠' };
-                sectionTitle.textContent = activeCategory === 'all' ? '📋 All Notes' : `${emojiMap[activeCategory] || '📌'} ${activeCategory.charAt(0).toUpperCase()+activeCategory.slice(1)} Notes`;
+                const emojiMap = {
+                    selenium: '🌐',
+                    java: '☕',
+                    unix: '🐧',
+                    devops: '🔄',
+                    'api-testing': '🔗',
+                    'testing-basics': '📋'
+                };
+                sectionTitle.textContent = activeCategory === 'all' ? '📋 All Notes' : `${emojiMap[activeCategory] || '📌'} ${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1).replace('-',' ')} Notes`;
                 updateBadgeCounts();
             }
 
