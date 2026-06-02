@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Core Notes – Day10 to Day20 | Pawan Kumar</title>
+    <!-- External CSS (same as original – link to styles.css) -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2>📘 Java Notes</h2>
+        <nav>
+            <ul>
+                <li><a href="#day10">Day 10: OOP – Class & Object</a></li>
+                <li><a href="#day11">Day 11: Methods vs Constructors</a></li>
+                <li><a href="#day12">Day 12: Polymorphism & Overloading</a></li>
+                <li><a href="#day13">Day 13: this, Encapsulation, static</a></li>
+                <li><a href="#day14">Day 14: Inheritance & main() variations</a></li>
+                <li><a href="#day16">Day 16: Abstraction & Interface</a></li>
+                <li><a href="#abstract-interface-compare">Abstract Class vs Interface</a></li>
+                <li><a href="#day17">Day 17: Wrapper Classes & Packages & Access Modifiers</a></li>
+                <li><a href="#day18">Day 18: Type Casting (Upcasting/Downcasting)</a></li>
+                <li><a href="#day19">Day 19: Exception Handling</a></li>
+                <li><a href="#day20">Day 20: Collections (List, Set, Map)</a></li>
+                <li><a href="#collection-hierarchy">Collection Hierarchy Diagram</a></li>
+                <li><a href="#assignment-emp-group">Assignment: Employee & Group</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h1>☕ Java Core Notes (Day 10 – Day 20)</h1>
+        <div class="subhead">Object Oriented Programming, Exception Handling, Collections & more – complete reference</div>
+
+        <!-- Day 10 -->
+        <section id="day10">
+            <h2>📅 Day 10: OOP – Class & Object</h2>
+            <h3>Object Oriented Programming pillars</h3>
+            <ul>
+                <li>Class</li>
+                <li>Object</li>
+                <li>Polymorphism</li>
+                <li>Encapsulation</li>
+                <li>Inheritance</li>
+                <li>Data Abstraction</li>
+            </ul>
+            <h3>Class</h3>
+            <ul>
+                <li>Collection of variables (attributes) and methods (behavior).</li>
+                <li>Logical entity / blueprint – does not occupy memory.</li>
+            </ul>
+            <h3>Object</h3>
+            <ul>
+                <li>Instance of a class – created using <code>new</code> keyword.</li>
+                <li>Physical entity – occupies memory.</li>
+                <li>Multiple objects can be created for a single class.</li>
+            </ul>
+            <pre><code>class Employee {
+    // variables
+    int id;
+    String name;
+    // methods
+    void work() {
+        System.out.println("Employee works");
+    }
+}
+
+// Creating object
+Employee emp = new Employee();
+emp.id = 101;
+emp.name = "John";
+emp.work();
+
+// String object example
+String s = new String("welcome");
+int len = s.length();   // 7
+String trimmed = s.replaceAll("\\s", "");   // removes spaces</code></pre>
+            <div class="note-box">
+                <strong>📌 Note:</strong> <code>String s = "welcome to java"; s.replaceAll("\\s","")</code> → <code>"welcometojava"</code>
+            </div>
+        </section>
+
+        <!-- Day 11 -->
+        <section id="day11">
+            <h2>📅 Day 11: Methods vs Constructors</h2>
+            <h3>Method</h3>
+            <ul>
+                <li>Block of statements that perform a task.</li>
+                <li>Invoked explicitly through object.</li>
+                <li>Can have any name (not necessarily class name).</li>
+                <li>May or may not return a value – <code>void</code> if no return.</li>
+                <li>Can take parameters.</li>
+                <li>Used to specify logic.</li>
+            </ul>
+            <h3>Constructor</h3>
+            <ul>
+                <li>Name must be same as class name.</li>
+                <li>Never returns a value (not even <code>void</code>).</li>
+                <li>Automatically invoked at object creation.</li>
+                <li>Used to initialise variables.</li>
+                <li>Can take parameters (parameterized constructor).</li>
+            </ul>
+            <h4>Four types of methods (based on parameters & return)</h4>
+            <ul>
+                <li>No params, No return</li>
+                <li>No params, Return value</li>
+                <li>Takes params, No return</li>
+                <li>Takes params, Returns value</li>
+            </ul>
+            <pre><code>// Example: String length() – no params, returns int
+String s = "welcome";
+int l = s.length();   // 7
+
+// substring(int, int) – takes params, returns String
+String sub = s.substring(2,5);   // "lco"</code></pre>
+            <h4>Storing data into variables – 3 ways</h4>
+            <ol>
+                <li>By using object reference variable</li>
+                <li>By using method</li>
+                <li>By using constructor</li>
+            </ol>
+        </section>
+
+        <!-- Day 12 -->
+        <section id="day12">
+            <h2>📅 Day 12: Polymorphism & Method Overloading</h2>
+            <p><strong>Polymorphism:</strong> One thing having many forms (e.g., water → vapour/ice, shape → rectangle/circle).</p>
+            <h3>Method Overloading (Compile‑time Polymorphism)</h3>
+            <p>Multiple methods with the same name but different parameters.</p>
+            <ul>
+                <li>Method names must be same.</li>
+                <li>Number of parameters must be different.</li>
+                <li>Data types of parameters must be different.</li>
+                <li>Order of parameters must be different.</li>
+            </ul>
+            <pre><code>class X {
+    void m1() { }
+    void m1(int a) { }          // different number
+    void m1(String s) { }       // different type
+    void m1(int a, String b) { }
+    void m1(String b, int a) { } // different order
+}</code></pre>
+            <div class="note-box">
+                <strong>❓ Can we overload main()?</strong> Yes, but the JVM always calls <code>public static void main(String[] args)</code> as entry point.
+            </div>
+            <p><strong>Call by value vs Call by reference</strong> – explained with examples.</p>
+        </section>
+
+        <!-- Day 13 -->
+        <section id="day13">
+            <h2>📅 Day 13: this keyword, Encapsulation, static keyword</h2>
+            <h3>Types of variables</h3>
+            <ul>
+                <li><strong>Class variables / Instance variables</strong> – declared inside class but outside methods.</li>
+                <li><strong>Local variables</strong> – declared inside methods/constructors.</li>
+            </ul>
+            <h3><code>this</code> keyword</h3>
+            <p>Represents the current class instance – used to refer to instance variables when shadowed by local variables.</p>
+            <h3>Encapsulation</h3>
+            <ul>
+                <li>All variables should be <code>private</code>.</li>
+                <li>For each variable, provide <code>getter</code> and <code>setter</code> methods.</li>
+                <li>Variables can be operated only through methods.</li>
+            </ul>
+            <pre><code>class Account {
+    private double balance;
+    public void setBalance(double b) { if(b>0) balance = b; }
+    public double getBalance() { return balance; }
+}</code></pre>
+            <h3><code>static</code> keyword</h3>
+            <ul>
+                <li>Static methods can access static stuff directly (without object).</li>
+                <li>Static methods can access non‑static stuff through object.</li>
+                <li>Non‑static methods can access everything directly.</li>
+            </ul>
+            <pre><code>class Test {
+    static String s = "welcome";
+}
+// Access static member via class name
+Test.s.length();
+
+// System.out is a static PrintStream object
+System.out.println("Hello");</code></pre>
+        </section>
+
+        <!-- Day 14 -->
+        <section id="day14">
+            <h2>📅 Day 14: Inheritance & Variations of main()</h2>
+            <p><strong>Inheritance:</strong> Acquiring properties (variables) and behaviour (methods) from one class to another.</p>
+            <ul>
+                <li>Objective: Reusability, Avoid duplication.</li>
+            </ul>
+            <h3>Types of Inheritance</h3>
+            <ul>
+                <li>Single</li>
+                <li>Multi‑level</li>
+                <li>Hierarchical</li>
+                <li>Multiple (not supported by classes, but via interfaces)</li>
+            </ul>
+            <h3>Valid <code>main()</code> method signatures</h3>
+            <pre><code>public static void main(String[] args)   // standard
+public static void main(String a[])       // valid
+public static void main(String []a)       // valid
+static public void main(String[] args)    // valid (order of modifiers allowed)
+// invalid examples:
+// void main(String args[]) public static
+// public static void main(int a[])</code></pre>
+            <div class="note-box">
+                <strong>📌 Note:</strong> The parameter name can be anything, but type must be <code>String[]</code>.
+            </div>
+        </section>
+
+        <!-- Day 16: Abstraction and Interface -->
+        <section id="day16">
+            <h2>📅 Day 16: Data Abstraction & Interface</h2>
+            <p><strong>Abstraction:</strong> Hiding implementation details and showing only functionality.</p>
+            <ul>
+                <li>Achieved via <strong>abstract classes</strong> and <strong>interfaces</strong>.</li>
+            </ul>
+            <h3>Interface</h3>
+            <ul>
+                <li>Blueprint of a class.</li>
+                <li>Contains <code>final</code> & <code>static</code> variables.</li>
+                <li>Contains abstract methods (until Java 7); from Java 8 onwards allows <code>default</code> and <code>static</code> methods.</li>
+                <li>Abstract method: signature only, no body.</li>
+                <li>All methods are <code>public</code> by default.</li>
+                <li>Supports multiple inheritance.</li>
+                <li>Interface is defined using <code>interface</code> keyword.</li>
+                <li>A class <code>implements</code> an interface; an interface <code>extends</code> another interface.</li>
+                <li>We can create an object reference for an interface but cannot instantiate it.</li>
+            </ul>
+            <pre><code>interface I {
+    int x = 10;  // public static final
+    void m1();   // public abstract
+}
+
+class A implements I {
+    public void m1() {
+        System.out.println("Implemented");
+    }
+}</code></pre>
+        </section>
+
+        <!-- Abstract Class vs Interface Comparison -->
+        <section id="abstract-interface-compare">
+            <h2>📊 Abstract Class vs Interface</h2>
+            <table>
+                <thead>
+                    <tr><th>Abstract Class</th><th>Interface</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Use <code>abstract</code> keyword</td><td>Use <code>interface</code> keyword</td></tr>
+                    <tr><td>Subclasses <code>extends</code> abstract class</td><td>Subclasses <code>implements</code> interface</td></tr>
+                    <tr><td>Can have implemented methods + 0 or more abstract methods</td><td>Java 8+ can have default & static methods</td></tr>
+                    <tr><td>We can extend only one abstract class</td><td>We can implement multiple interfaces</td></tr>
+                </tbody>
+            </table>
+            <div class="note-box">
+                <strong>📌 Key point:</strong> Multiple inheritance is achieved only through interfaces in Java.
+            </div>
+        </section>
+
+        <!-- Day 17: Wrapper Classes, Packages, Access Modifiers -->
+        <section id="day17">
+            <h2>📅 Day 17: Wrapper Classes, Packages & Access Modifiers</h2>
+            <h3>Wrapper Classes</h3>
+            <ul>
+                <li>Convert primitives into objects and vice versa.</li>
+                <li><code>int → Integer</code>, <code>float → Float</code>, <code>double → Double</code>, <code>char → Character</code>, <code>boolean → Boolean</code>.</li>
+                <li><strong>Auto‑boxing:</strong> Primitive → Object automatically.</li>
+                <li><strong>Unboxing:</strong> Object → Primitive automatically.</li>
+            </ul>
+            <pre><code>int x = 100;
+Integer obj = x;   // auto-boxing
+int y = obj;       // unboxing
+
+// String to number
+String s1 = "150";
+int num = Integer.parseInt(s1);   // 150
+
+// Number to String
+String s2 = Integer.toString(123);</code></pre>
+            <h3>Packages</h3>
+            <ul>
+                <li>Built‑in packages (e.g., <code>java.util</code>, <code>java.io</code>)</li>
+                <li>User‑defined packages</li>
+                <li>Sub‑packages</li>
+            </ul>
+            <h3>Access Modifiers</h3>
+            <ul>
+                <li><code>public</code> – accessible everywhere.</li>
+                <li><code>protected</code> – accessible outside package only through inheritance.</li>
+                <li><code>default</code> – accessible only within the same package.</li>
+                <li><code>private</code> – accessible only within the class.</li>
+            </ul>
+        </section>
+
+        <!-- Day 18: Type Casting -->
+        <section id="day18">
+            <h2>📅 Day 18: Type Casting (Upcasting / Downcasting)</h2>
+            <p>Converting type of data.</p>
+            <ul>
+                <li><strong>Upcasting / Widening:</strong> Child to Parent reference.</li>
+                <li><strong>Downcasting / Narrowing:</strong> Parent to Child reference (explicit cast).</li>
+            </ul>
+            <pre><code>Child c = new Child();
+Parent p = new Child();   // upcasting (implicit)
+
+// Downcasting (explicit)
+Child c2 = (Child) p;</code></pre>
+            <h3>Type Casting Rules</h3>
+            <p><strong>Syntax:</strong> <code>A b = (C) d;</code></p>
+            <ul>
+                <li><strong>Rule 1 (conversion valid?):</strong> Type of <code>d</code> and <code>C</code> must have a relationship (parent/child/same).</li>
+                <li><strong>Rule 2 (assignment valid?):</strong> <code>C</code> must be same or child of <code>A</code>.</li>
+                <li><strong>Rule 3 (runtime):</strong> Underlying object type of <code>d</code> must be same or child of <code>C</code>.</li>
+            </ul>
+            <div class="note-box">
+                <strong>⚠️</strong> Incorrect downcasting leads to <code>ClassCastException</code>.
+            </div>
+        </section>
+
+        <!-- Day 19: Exception Handling -->
+        <section id="day19">
+            <h2>📅 Day 19: Exception Handling</h2>
+            <p><strong>Exception:</strong> An event that causes program termination.</p>
+            <h3>Types of Exceptions</h3>
+            <ul>
+                <li><strong>Checked Exceptions:</strong> Identified by compiler (e.g., <code>InterruptedException</code>, <code>FileNotFoundException</code>, <code>IOException</code>). Must be handled or declared.</li>
+                <li><strong>Unchecked Exceptions:</strong> Not identified by compiler (e.g., <code>ArithmeticException</code>, <code>NullPointerException</code>, <code>ArrayIndexOutOfBoundsException</code>).</li>
+            </ul>
+            <h3>try-catch-finally</h3>
+            <pre><code>try {
+    // risky code
+} catch (ExceptionType e) {
+    // handle
+} finally {
+    // always executes – used to close resources
+}</code></pre>
+            <h4>finally block behaviour</h4>
+            <ul>
+                <li>Exception occurs & catch handles → finally executes</li>
+                <li>Exception occurs & catch does NOT handle → finally executes</li>
+                <li>No exception → catch ignored, finally executes</li>
+            </ul>
+            <h3>Handling Unknown Exceptions</h3>
+            <ul>
+                <li>Multiple catch blocks (specific to general).</li>
+                <li>Single catch with <code>Exception</code> class.</li>
+            </ul>
+            <h3>throw vs throws</h3>
+            <ul>
+                <li><code>throw</code> – used to explicitly throw an exception (inside method).</li>
+                <li><code>throws</code> – used in method signature to declare that the method may throw an exception.</li>
+            </ul>
+            <pre><code>void readFile() throws IOException {
+    throw new IOException("File not found");
+}</code></pre>
+        </section>
+
+        <!-- Day 20: Collections -->
+        <section id="day20">
+            <h2>📅 Day 20: Collections Framework</h2>
+            <p><strong>Collection:</strong> Represents a group of elements/objects/data as a single entity. <code>Collection</code> is an interface in <code>java.util</code>.</p>
+            
+            <h3>ArrayList (implements List)</h3>
+            <ul>
+                <li>Heterogeneous data – allowed</li>
+                <li>Insertion order preserved (index based)</li>
+                <li>Duplicate elements – allowed</li>
+                <li>Multiple <code>null</code> – allowed</li>
+            </ul>
+            <pre><code>import java.util.ArrayList;
+ArrayList list = new ArrayList();
+list.add(100);
+list.add("Hello");
+list.add(null);
+list.add(null);
+System.out.println(list);</code></pre>
+            
+            <h3>HashSet (implements Set)</h3>
+            <ul>
+                <li>Heterogeneous data – allowed</li>
+                <li>Insertion order NOT preserved (no index)</li>
+                <li>Duplicate elements – NOT allowed</li>
+                <li>Multiple nulls – NOT allowed (only one null)</li>
+            </ul>
+            <pre><code>import java.util.HashSet;
+HashSet set = new HashSet();
+set.add(10);
+set.add(20);
+set.add(10);  // duplicate – ignored
+set.add(null);
+set.add(null); // second null ignored
+System.out.println(set);</code></pre>
+            
+            <h3>HashMap (implements Map)</h3>
+            <ul>
+                <li>Stores data as key‑value pairs.</li>
+                <li>Key must be unique, values can be duplicate.</li>
+                <li>Insertion order not preserved.</li>
+            </ul>
+            <pre><code>import java.util.HashMap;
+HashMap map = new HashMap();
+map.put(101, "John");
+map.put(102, "Scott");
+map.put(103, "Mary");
+System.out.println(map.get(101)); // John</code></pre>
+            <div class="note-box">
+                <strong>🔁 Iterating over collections:</strong> Use <code>Iterator</code> interface – <code>Iterator it = mylist.iterator();</code>
+            </div>
+            <p>Collections videos: <a href="https://www.youtube.com/playlist?list=PLUDwpEzHYYLu9-xrx5ykNH8wmN1C1qClk" target="_blank">YouTube Playlist</a></p>
+        </section>
+
+        <!-- Collection Hierarchy Diagram (text representation) -->
+        <section id="collection-hierarchy">
+            <h2>📊 Collection Framework Hierarchy (based on Collections.png)</h2>
+            <ul>
+                <li><strong>Collection (I)</strong>
+                    <ul>
+                        <li><strong>List (I)</strong>
+                            <ul><li>ArrayList (C)</li></ul>
+                        </li>
+                        <li><strong>Set (I)</strong>
+                            <ul><li>HashSet (C)</li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Map (I)</strong>
+                    <ul><li>HashMap (C)
+                        <ul>
+                            <li>Keys: 12345, 56789, 234589, id (101→john, 102→scott, 103→mary)</li>
+                        </ul>
+                    </li></ul>
+                </li>
+            </ul>
+            <div class="note-box">
+                <strong>📌 Note:</strong> <code>Map</code> does NOT extend <code>Collection</code> interface, but it is part of the collections framework.
+            </div>
+        </section>
+
+        <!-- Assignment from Day20.txt -->
+        <section id="assignment-emp-group">
+            <h2>📝 Assignment: Employee & Group (Collections)</h2>
+            <p><strong>Problem:</strong></p>
+            <ol>
+                <li>Create <code>Employee</code> class which contains <code>id</code> and <code>name</code>.</li>
+                <li>Create <code>Group</code> class which contains <code>groupID</code> and <code>employees</code> list (ArrayList of Employee).</li>
+                <li>Sort employee names (using <code>Collections.sort()</code> or custom comparator).</li>
+            </ol>
+            <h3>Solution Code</h3>
+            <pre><code>import java.util.*;
+
+class Employee {
+    int id;
+    String name;
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    public String toString() {
+        return id + " : " + name;
+    }
+}
+
+class Group {
+    int groupID;
+    ArrayList&lt;Employee&gt; employees;
+    Group(int groupID) {
+        this.groupID = groupID;
+        employees = new ArrayList&lt;&gt;();
+    }
+    void addEmployee(Employee e) {
+        employees.add(e);
+    }
+    void sortEmployeesByName() {
+        // Using Comparator to sort by name
+        Collections.sort(employees, (e1, e2) -> e1.name.compareTo(e2.name));
+    }
+    void display() {
+        System.out.println("Group ID: " + groupID);
+        for(Employee e : employees) {
+            System.out.println(e);
+        }
+    }
+}
+
+// Main class to test
+public class Main {
+    public static void main(String[] args) {
+        Group g = new Group(101);
+        g.addEmployee(new Employee(3, "Mary"));
+        g.addEmployee(new Employee(1, "John"));
+        g.addEmployee(new Employee(2, "Alice"));
+        
+        System.out.println("Before sorting:");
+        g.display();
+        
+        g.sortEmployeesByName();
+        System.out.println("\nAfter sorting by name:");
+        g.display();
+    }
+}</code></pre>
+            <div class="note-box">
+                <strong>🎯 Expected Output:</strong><br>
+                Before sorting:<br>
+                Group ID: 101<br>
+                3 : Mary<br>
+                1 : John<br>
+                2 : Alice<br><br>
+                After sorting by name:<br>
+                Group ID: 101<br>
+                2 : Alice<br>
+                1 : John<br>
+                3 : Mary
+            </div>
+        </section>
+
+        <footer>
+            <p>📖 Complete notes from Day10 to Day20 – OOP, Inheritance, Polymorphism, Encapsulation, Abstraction, Interfaces, Wrapper Classes, Type Casting, Exception Handling, Collections (ArrayList, HashSet, HashMap).</p>
+            <p>✅ All code examples, assignment solved, and hierarchy diagrams included. Refer to external <code>styles.css</code> for consistent styling.</p>
+            <p>✨ Java Core Mastery | No topic missed</p>
+        </footer>
+    </main>
+</div>
+</body>
+</html>

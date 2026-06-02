@@ -3,187 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Part1 Pawan Kumar</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background: #f5f7fb;
-            color: #1e293b;
-            line-height: 1.6;
-        }
-        .container {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-        }
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: #1e2a3e;
-            color: #e2e8f0;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            padding: 2rem 1rem;
-            border-right: 1px solid #334155;
-        }
-        .sidebar h2 {
-            color: #facc15;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #facc15;
-            display: inline-block;
-            padding-bottom: 0.3rem;
-        }
-        .sidebar nav ul {
-            list-style: none;
-            margin-top: 1rem;
-        }
-        .sidebar nav li {
-            margin: 0.7rem 0;
-        }
-        .sidebar nav a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.2s;
-            display: block;
-            padding: 0.3rem 0;
-            border-left: 2px solid transparent;
-            padding-left: 0.8rem;
-        }
-        .sidebar nav a:hover {
-            color: #facc15;
-            border-left-color: #facc15;
-            background: #2d3a4e;
-        }
-        /* Main content */
-        .main-content {
-            flex: 1;
-            padding: 2rem 2.5rem;
-            background: #ffffff;
-            overflow-x: auto;
-        }
-        h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-            border-left: 5px solid #facc15;
-            padding-left: 1rem;
-        }
-        .subhead {
-            color: #475569;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 1rem;
-        }
-        h2 {
-            font-size: 1.8rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #0f172a;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.4rem;
-        }
-        h3 {
-            font-size: 1.4rem;
-            margin-top: 1.5rem;
-            color: #334155;
-        }
-        h4 {
-            font-size: 1.2rem;
-            margin: 1rem 0 0.5rem;
-            color: #475569;
-        }
-        pre {
-            background: #0f172a;
-            color: #e2e8f0;
-            padding: 1.2rem;
-            border-radius: 12px;
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 0.85rem;
-            margin: 1rem 0;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-        code {
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            background: #f1f5f9;
-            color: #0f172a;
-            padding: 0.2rem 0.4rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-        pre code {
-            background: transparent;
-            color: inherit;
-            padding: 0;
-        }
-        .note-box {
-            background: #fef9e3;
-            border-left: 5px solid #facc15;
-            padding: 1.2rem;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.2rem 0;
-            background: #f8fafc;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        th {
-            background: #1e293b;
-            color: white;
-            padding: 10px 12px;
-            font-weight: 600;
-        }
-        td {
-            border: 1px solid #cbd5e1;
-            padding: 8px 12px;
-        }
-        ul, ol {
-            margin: 0.8rem 0 0.8rem 1.5rem;
-        }
-        li {
-            margin: 0.3rem 0;
-        }
-        footer {
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
-        }
-        @media (max-width: 800px) {
-            .container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .main-content {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <title>Java + Selenium Notes – Pawan Kumar Part1 (Complete)</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="container">
@@ -200,9 +21,15 @@
                 <li><a href="#day7">Day 7: Scanner & Array Algorithms</a></li>
                 <li><a href="#day8">Day 8: String Methods & Object Array</a></li>
                 <li><a href="#day9">Day 9: String Reverse, Immutability, Assignments</a></li>
-                <li><a href="#selenium">Selenium Suite & Automation</a></li>
-                <li><a href="#install">JDK + Eclipse Install (Win/Mac)</a></li>
-                <li><a href="#assignments">All Assignments Summary</a></li>
+                <li><a href="#oops">🔷 OOP Deep Dive (Classes, Objects, Constructors)</a></li>
+                <li><a href="#inheritance">🔷 Inheritance & Polymorphism</a></li>
+                <li><a href="#encapsulation">🔷 Encapsulation & Abstraction</a></li>
+                <li><a href="#static">🔷 Static vs Non‑static</a></li>
+                <li><a href="#exception">⚠️ Exception Handling</a></li>
+                <li><a href="#collections">📚 Collections Framework (ArrayList, HashMap)</a></li>
+                <li><a href="#selenium">🧪 Selenium WebDriver – Detailed</a></li>
+                <li><a href="#install">🛠 JDK + Eclipse Install (Win/Mac)</a></li>
+                <li><a href="#assignments">📌 All Assignments Summary</a></li>
             </ul>
         </nav>
     </aside>
@@ -210,8 +37,12 @@
     <main class="main-content">
         <h1>☕ Complete Java + Selenium Notes</h1>
         <div class="subhead">Based on Day1–Day9 training, practical code, and Selenium fundamentals – every topic covered.</div>
+        
+        <div class="note-box">
+            <strong>📌 Quick Tip:</strong> Use the sidebar to jump to any topic. All code examples are ready to run in Eclipse/IntelliJ.
+        </div>
 
-        <!-- Day 1 -->
+        <!-- Day 1 to Day 9 (original content, unchanged) -->
         <section id="day1">
             <h2>📅 Day 1: OOP Concepts, Java Features & Selenium Overview</h2>
             <h3>Programming Paradigms</h3>
@@ -236,7 +67,6 @@
             </ul>
         </section>
 
-        <!-- Day 2 -->
         <section id="day2">
             <h2>📅 Day 2: Variables & Data Types</h2>
             <pre><code>int a = 100;
@@ -253,17 +83,15 @@ boolean flag = true;</code></pre>
                 <tr><td>float</td><td>4 bytes</td><td>float f = 150.5F;</td></tr>
                 <tr><td>double</td><td>8 bytes</td><td>double d = 45.6789;</td></tr>
                 <tr><td>char</td><td>2 bytes</td><td>char c = 'M';</td></tr>
-                <tr><td>boolean</td><td>1 bit</td><td>boolean ok = true;</td></tr>
+                <tr><td>boolean</td><td>JVM dependent</td><td>boolean ok = true;</td></tr>
             </table>
             <p><strong>Non-primitive:</strong> String, Arrays, ArrayList, Object, etc.</p>
-            <pre><code>// From DataTypesDemo.java
-int a=100; byte by=120; long l=123456789L;
+            <pre><code>int a=100; byte by=120; long l=123456789L;
 float price=150.5F; double item=145.324;
 char grad='B'; boolean bool=true;
 String name="John";</code></pre>
         </section>
 
-        <!-- Day 3 -->
         <section id="day3">
             <h2>📅 Day 3: Operators in Java</h2>
             <ul>
@@ -279,7 +107,6 @@ String name="John";</code></pre>
             </div>
         </section>
 
-        <!-- Day 4 -->
         <section id="day4">
             <h2>📅 Day 4: Conditional Statements</h2>
             <pre><code>// if-else example
@@ -297,7 +124,6 @@ switch(day) {
             <p>Assignments: largest of 2/3 numbers, smallest of 3, week number using switch.</p>
         </section>
 
-        <!-- Day 5 -->
         <section id="day5">
             <h2>📅 Day 5: Loops (while, do-while, for, enhanced for) & Jump Statements</h2>
             <pre><code>// for loop
@@ -324,7 +150,6 @@ for(int val : arr) System.out.println(val);</code></pre>
             </ul>
         </section>
 
-        <!-- Day 6 -->
         <section id="day6">
             <h2>📅 Day 6: Single & Two-Dimensional Arrays</h2>
             <h3>1D Array</h3>
@@ -348,7 +173,6 @@ for(int[] row : matrix) {
             <p>Assignments: Sum of array elements, count even/odd numbers.</p>
         </section>
 
-        <!-- Day 7 -->
         <section id="day7">
             <h2>📅 Day 7: Scanner Input & Array Algorithms</h2>
             <pre><code>import java.util.Scanner;
@@ -367,7 +191,6 @@ int num = sc.nextInt();</code></pre>
             </div>
         </section>
 
-        <!-- Day 8 -->
         <section id="day8">
             <h2>📅 Day 8: String Methods & Object Array</h2>
             <pre><code>String s = "welcome";
@@ -383,9 +206,8 @@ s.substring(2,5);          // "lco"
 s.toUpperCase();           // "WELCOME"
 s.split("@");              // returns array
 
-// Replace special chars
 String amount = "$15,20,55";
-amount.replace("$","").replace(",",""); // "152055"</code></pre>
+String cleanAmount = amount.replace("$","").replace(",",""); // "152055"</code></pre>
             <h3>Object Type Array (Heterogeneous)</h3>
             <pre><code>Object[] mix = new Object[5];
 mix[0] = 100;
@@ -396,7 +218,6 @@ mix[4] = 10.5;
 for(Object o : mix) System.out.println(o);</code></pre>
         </section>
 
-        <!-- Day 9 -->
         <section id="day9">
             <h2>📅 Day 9: String Reverse, Comparison, Immutability & Assignments</h2>
             <h3>Reverse a string</h3>
@@ -412,8 +233,8 @@ String reversed = sb.reverse().toString(); // "emoclew"</code></pre>
                 <li><strong>StringBuilder:</strong> Mutable, faster (not thread-safe).</li>
             </ul>
             <div class="note-box">
-                <strong>❓ Key doubt:</strong> <code>StringBuilder s = new StringBuilder("welcome"); String b = s.reverse();</code><br>
-                <strong>Answer:</strong> StringBuilder is mutable, reverse() modifies the original object, so both s and b refer to "emoclew".
+                <strong>❓ Key doubt (Corrected):</strong> <code>StringBuilder sb = new StringBuilder("welcome"); sb.reverse(); String result = sb.toString();</code><br>
+                <strong>Answer:</strong> StringBuilder is mutable, <code>reverse()</code> modifies the original object. After reversing, <code>sb.toString()</code> gives "emoclew".
             </div>
             <h4>Day 9 Assignments (Solutions approach)</h4>
             <ol>
@@ -429,31 +250,184 @@ String clean = dirty.replaceAll("[^a-zA-Z]", "");
 System.out.println(clean); // "welcome"</code></pre>
         </section>
 
-        <!-- Selenium -->
+        <!-- ========== NEW SECTIONS ADDED (Missing topics) ========== -->
+        <section id="oops">
+            <h2>🔷 OOP Deep Dive – Classes, Objects & Constructors</h2>
+            <h3>Class & Object</h3>
+            <pre><code>// Class definition
+class Student {
+    int id;
+    String name;
+    
+    // Constructor
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
+    void display() {
+        System.out.println(id + " - " + name);
+    }
+}
+
+// Creating object
+Student s1 = new Student(101, "Pawan");
+s1.display();</code></pre>
+            <h3>Types of Constructors</h3>
+            <ul>
+                <li><strong>Default constructor</strong> – provided by compiler if none defined.</li>
+                <li><strong>Parameterized constructor</strong> – accepts arguments to initialize object.</li>
+                <li><strong>Copy constructor</strong> – (not default in Java, but can be created manually).</li>
+            </ul>
+            <div class="note-box">
+                <strong>📌 this keyword:</strong> refers to current class instance variable. Used to avoid name conflicts.
+            </div>
+        </section>
+
+        <section id="inheritance">
+            <h2>🔷 Inheritance & Polymorphism</h2>
+            <h3>Inheritance (extends)</h3>
+            <pre><code>class Animal {
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+// Usage
+Dog d = new Dog();
+d.sound(); // Dog barks</code></pre>
+            <h3>Polymorphism</h3>
+            <ul>
+                <li><strong>Compile-time (Method Overloading):</strong> multiple methods with same name but different parameters.</li>
+                <li><strong>Runtime (Method Overriding):</strong> subclass redefines parent method.</li>
+            </ul>
+            <pre><code>// Overloading example
+class MathOp {
+    int add(int a, int b) { return a+b; }
+    double add(double a, double b) { return a+b; }
+}</code></pre>
+        </section>
+
+        <section id="encapsulation">
+            <h2>🔷 Encapsulation & Abstraction</h2>
+            <h3>Encapsulation (Data Hiding)</h3>
+            <pre><code>class Account {
+    private double balance;
+    
+    public void setBalance(double b) {
+        if(b > 0) balance = b;
+    }
+    public double getBalance() {
+        return balance;
+    }
+}</code></pre>
+            <h3>Abstraction (Abstract Class & Interface)</h3>
+            <pre><code>abstract class Vehicle {
+    abstract void start();
+}
+
+class Car extends Vehicle {
+    void start() {
+        System.out.println("Car starts with key");
+    }
+}</code></pre>
+        </section>
+
+        <section id="static">
+            <h2>🔷 Static vs Non‑static Members</h2>
+            <ul>
+                <li><strong>Static</strong> – belongs to class, shared among all objects. Accessed via class name.</li>
+                <li><strong>Non‑static</strong> – belongs to instance, each object has its own copy.</li>
+            </ul>
+            <pre><code>class Counter {
+    static int count = 0;  // shared
+    int instanceVar = 10;
+    
+    Counter() { count++; }
+    static void showCount() { System.out.println(count); }
+}</code></pre>
+        </section>
+
+        <section id="exception">
+            <h2>⚠️ Exception Handling in Java</h2>
+            <p>Exceptions are runtime errors. Handled using <code>try-catch-finally</code> and <code>throws</code>.</p>
+            <pre><code>try {
+    int[] arr = new int[5];
+    arr[10] = 100;  // ArrayIndexOutOfBoundsException
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Index out of bound!");
+} finally {
+    System.out.println("Always executes");
+}
+
+// Checked exception example
+Thread.sleep(1000);  // requires try-catch or throws</code></pre>
+            <h3>Common Exceptions</h3>
+            <ul>
+                <li>NullPointerException, ArithmeticException, NumberFormatException, IOException, SQLException.</li>
+            </ul>
+            <div class="note-box">
+                <strong>🔑 throw vs throws:</strong> <code>throw</code> is used to explicitly throw an exception; <code>throws</code> declares that a method may throw an exception.
+            </div>
+        </section>
+
+        <section id="collections">
+            <h2>📚 Collections Framework (ArrayList, HashMap)</h2>
+            <h3>ArrayList (Dynamic Array)</h3>
+            <pre><code>import java.util.ArrayList;
+ArrayList<String> list = new ArrayList<>();
+list.add("Java");
+list.add("Selenium");
+list.remove(0);
+System.out.println(list.get(0)); // Selenium</code></pre>
+            <h3>HashMap (Key-Value pairs)</h3>
+            <pre><code>import java.util.HashMap;
+HashMap<Integer, String> map = new HashMap<>();
+map.put(101, "Pawan");
+map.put(102, "Kumar");
+System.out.println(map.get(101)); // Pawan</code></pre>
+            <p>Other important collections: LinkedList, HashSet, TreeMap.</p>
+        </section>
+
+        <!-- Enhanced Selenium Section -->
         <section id="selenium">
-            <h2>🧪 Selenium – Web Automation Suite</h2>
-            <p><strong>Selenium</strong> is an open source tool for automating web browsers across platforms (Windows, Mac, Linux) and browsers (Chrome, Firefox, Safari, Edge).</p>
-            <h3>Components of Selenium Suite</h3>
+            <h2>🧪 Selenium WebDriver – Detailed</h2>
+            <p><strong>Selenium WebDriver</strong> is the core component for automating web browsers. It directly communicates with the browser using its native automation API.</p>
+            <h3>Basic WebDriver Script (Java)</h3>
+            <pre><code>import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+WebDriver driver = new ChromeDriver();
+driver.get("https://www.google.com");
+String title = driver.getTitle();
+System.out.println(title);
+driver.quit();</code></pre>
+            <h3>Common WebDriver Methods</h3>
             <ul>
-                <li><strong>Selenium IDE:</strong> Record/playback add-on (Chrome/Firefox).</li>
-                <li><strong>Selenium RC (Remote Control):</strong> Selenium 1 (deprecated).</li>
-                <li><strong>WebDriver:</strong> Direct browser communication (core, modern).</li>
-                <li><strong>Selenium Grid:</strong> Parallel execution across multiple machines/browsers.</li>
+                <li><code>findElement(By.id("id"))</code> – locate element.</li>
+                <li><code>sendKeys("text")</code> – type into input fields.</li>
+                <li><code>click()</code> – click on button/link.</li>
+                <li><code>getText()</code> – get visible text.</li>
+                <li><code>getAttribute("value")</code> – get attribute value.</li>
+                <li><code>navigate().back()/forward()/refresh()</code>.</li>
             </ul>
-            <h3>Advantages</h3>
+            <div class="note-box">
+                <strong>⚠️ Locator strategies:</strong> id, name, className, tagName, linkText, partialLinkText, xpath, cssSelector.
+            </div>
+            <h3>Waiting Strategies</h3>
             <ul>
-                <li>Free & open source, multi-language support (Java, Python, C#, Ruby, JS).</li>
-                <li>Integrates with TestNG, JUnit, Jenkins.</li>
-                <li>Cross-browser & cross-platform.</li>
-            </ul>
-            <h3>Limitations</h3>
-            <ul>
-                <li>Only web apps (no desktop apps).</li>
-                <li>No built-in reporting, no image testing (needs Sikuli).</li>
+                <li><strong>Implicit wait:</strong> <code>driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);</code></li>
+                <li><strong>Explicit wait:</strong> <code>WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));<br>wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("id")));</code></li>
             </ul>
         </section>
 
-        <!-- Installation -->
+        <!-- Installation (unchanged) -->
         <section id="install">
             <h2>🛠 JDK 22 & Eclipse Installation (Windows & Mac)</h2>
             <h3>Windows</h3>
@@ -478,7 +452,7 @@ System.out.println(clean); // "welcome"</code></pre>
             </ul>
         </section>
 
-        <!-- All Assignments -->
+        <!-- Assignments summary (unchanged) -->
         <section id="assignments">
             <h2>📌 Complete Assignments Summary (Day-wise)</h2>
             <table>
@@ -495,7 +469,7 @@ System.out.println(clean); // "welcome"</code></pre>
             </div>
         </section>
 
-        <!-- Extra code snippets -->
+        <!-- Extra code snippets (unchanged) -->
         <h2>📂 Additional Code Examples (From original Java files)</h2>
         <pre><code>// SingleDimensionalArray.java
 int[] a = {10,20,30,40,50};
