@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Selenium WebDriver Ultimate Guide | Locators, CSS, XPath & Axes</title>
+    <title>Selenium Ultimate Guide | Locators, CSS, XPath & Axes</title>
     <!-- External CSS (provided in project – do not rewrite) -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Additional tiny inline for diagram enhancements (does not override core styles) -->
+    <!-- Tiny inline enhancements for diagrams / badges (does not override main CSS) -->
     <style>
-        /* extra utility for diagrams / images – not conflicting with original CSS */
-        .diagram-box {
+        .diagram-card {
             background: #f8fafc;
             border-radius: 20px;
             padding: 1.2rem;
@@ -18,17 +17,10 @@
             border: 1px solid #e2e8f0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
-        .diagram-svg {
+        .tree-svg, .axes-svg {
             max-width: 100%;
-            height: auto;
             background: #ffffff;
             border-radius: 16px;
-        }
-        .diagram-caption {
-            font-size: 0.85rem;
-            color: #334155;
-            margin-top: 0.5rem;
-            font-weight: 500;
         }
         .badge-tip {
             background: #e6f0ff;
@@ -40,317 +32,319 @@
             display: inline-block;
             margin-right: 0.5rem;
         }
-        .sidebar nav a.active {
-            color: #facc15;
-            border-left-color: #facc15;
-            background: #2d3a4e;
+        .main-content h2, .main-content h3 {
+            scroll-margin-top: 25px;
         }
-        .main-content h2[id] {
-            scroll-margin-top: 20px;
-        }
+        .note-box ul, .note-box p { margin: 0.5rem 0; }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- SIDEBAR: Sticky navigation table of contents -->
+    <!-- SIDEBAR: quick navigation based on TOC -->
     <aside class="sidebar">
-        <h2>📘 Selenium Guide</h2>
+        <h2>📍 Selenium Pro</h2>
         <nav>
             <ul>
-                <li><a href="#intro-setup">⚙️ Setup & First Test</a></li>
-                <li><a href="#locators-basics">📍 Locators (ID, Name, LinkText...)</a></li>
-                <li><a href="#findelement-vs-findelements">🔍 findElement vs findElements</a></li>
-                <li><a href="#css-selectors-guide">🎨 CSS Selectors (Complete)</a></li>
+                <li><a href="#intro">📌 Intro to Locators</a></li>
+                <li><a href="#basic-locators">🔹 Basic Locators (ID, Name, LinkText...)</a></li>
+                <li><a href="#find-vs-findelements">🔎 findElement vs findElements</a></li>
+                <li><a href="#css-guide">🎨 CSS Selectors (Complete)</a></li>
                 <li><a href="#xpath-absolute-relative">🧭 XPath: Absolute vs Relative</a></li>
-                <li><a href="#advanced-xpath">⚡ Advanced XPath (contains, text, starts-with)</a></li>
-                <li><a href="#xpath-axes-master">🌐 XPath Axes (DOM traversal)</a></li>
-                <li><a href="#selectorhub">🛠️ SelectorHub & Tools</a></li>
+                <li><a href="#advanced-xpath">⚙️ Advanced XPath (contains, text, starts-with)</a></li>
+                <li><a href="#axes-master">🌐 XPath Axes & DOM Traversal</a></li>
+                <li><a href="#selectorhub">🛠️ SelectorHub</a></li>
                 <li><a href="#best-practices">✅ Best Practices</a></li>
-                <li><a href="#quick-reference">📟 Quick Reference Cards</a></li>
                 <li><a href="#common-mistakes">⚠️ Common Mistakes</a></li>
-                <li><a href="#references">📚 References</a></li>
-                <li><a href="#extra-automation">🚀 Extra for Automation Pros</a></li>
+                <li><a href="#quickref">📟 Quick Reference Cards</a></li>
+                <li><a href="#references">📚 References & Final Words</a></li>
             </ul>
         </nav>
-        <div style="margin-top: 2rem; font-size: 0.75rem; border-top: 1px solid #334155; padding-top: 1rem;">
-            <p style="color:#94a3b8;">🎯 Based on Days 21–25 • Real project ready</p>
+        <div style="margin-top: 2rem; font-size: 0.7rem; border-top: 1px solid #334155; padding-top: 1rem; color:#94a3b8;">
+            🧪 For Automation Engineers • Based on Days 21–25
         </div>
     </aside>
 
-    <!-- MAIN CONTENT: Comprehensive Notes -->
+    <!-- MAIN CONTENT: All sections from the ultimate guide -->
     <main class="main-content">
-        <h1>Selenium WebDriver Ultimate Guide</h1>
-        <div class="subhead">Locators, CSS Selectors, XPath, and XPath Axes for Automation Engineers, Testers & Developers — complete reference with corrections, best practices, and practical examples.</div>
+        <h1>Ultimate Guide to Selenium Locators</h1>
+        <div class="subhead">Basic Locators, CSS Selectors, XPath, and XPath Axes — complete reference for Automation Engineers, Testers & Developers with real-world examples, corrections, and diagrams.</div>
 
-        <!-- ========== SECTION: SETUP & FIRST TEST ========== -->
-        <section id="intro-setup">
-            <h2>1. Selenium WebDriver – Environment Setup & First Test</h2>
-            <p><strong>WebDriver</strong> is a Java interface (API) for automating browsers (Chrome, Firefox, Edge, etc.). Maven project is the recommended setup.</p>
+        <!-- ========== 1. INTRODUCTION ========= -->
+        <section id="intro">
+            <h2>1. Introduction to Locators</h2>
+            <p>A <strong>locator</strong> is an address that uniquely identifies a web element. Without robust locators, tests become fragile. Selenium supports 8 strategies: ID, Name, LinkText, PartialLinkText, ClassName, TagName, CSS selectors, and XPath.</p>
             <div class="note-box">
-                📦 <strong>Maven dependency (pom.xml)</strong><br>
-                <code>groupId: org.seleniumhq.selenium</code> | <code>artifactId: selenium-java</code> | <code>version: 4.18.1+</code>
+                💡 <strong>Why master locators?</strong> Modern web apps are dynamic; many elements lack IDs; you need to handle iframes, shadow DOM, and changing attributes. Locators are the foundation of reliable automation.
             </div>
-            <pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
-    &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
-    &lt;version&gt;4.18.1&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-
-            <!-- Diagram: browser launch flow (image placeholder + SVG flow) -->
-            <div class="diagram-box">
-                <div class="diagram-svg">
-                    <svg width="100%" height="90" viewBox="0 0 600 70" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="10" y="15" width="100" height="40" rx="8" fill="#1e293b" stroke="#facc15" stroke-width="1.5"/>
-                        <text x="60" y="40" fill="#facc15" font-size="12" text-anchor="middle" font-weight="bold">Launch Driver</text>
-                        <line x1="110" y1="35" x2="150" y2="35" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-                        <rect x="150" y="15" width="110" height="40" rx="8" fill="#1e293b" stroke="#facc15"/>
-                        <text x="205" y="40" fill="#facc15" font-size="12" text-anchor="middle">driver.get(url)</text>
-                        <line x1="260" y1="35" x2="300" y2="35" stroke="#94a3b8" stroke-width="2"/>
-                        <rect x="300" y="15" width="120" height="40" rx="8" fill="#1e293b" stroke="#facc15"/>
-                        <text x="360" y="40" fill="#facc15" font-size="12" text-anchor="middle">Validate Title</text>
-                        <line x1="420" y1="35" x2="460" y2="35" stroke="#94a3b8" stroke-width="2"/>
-                        <rect x="460" y="15" width="100" height="40" rx="8" fill="#1e293b" stroke="#facc15"/>
-                        <text x="510" y="40" fill="#facc15" font-size="12" text-anchor="middle">driver.quit()</text>
-                        <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#facc15"/></marker></defs>
-                    </svg>
-                </div>
-                <div class="diagram-caption">🔁 Standard automation workflow: Launch → Navigate → Interact/Validate → Cleanup</div>
-            </div>
-            <pre><code>WebDriver driver = new ChromeDriver();
-driver.get("https://demo.opencart.com/");
-String title = driver.getTitle();
-if(title.equals("Your Store")) System.out.println("Passed");
-driver.quit();</code></pre>
+            <p><strong>Reference HTML snippet (used across examples):</strong></p>
+            <pre><code>&lt;div id="wrapper"&gt;
+  &lt;div id="content"&gt;
+    &lt;form id="frmLogin" method="post"&gt;
+      &lt;div id="divUsername" class="textInputContainer"&gt;
+        &lt;input name="txtUsername" id="txtUsername" type="text"&gt;
+        &lt;span class="form-hint"&gt;Username&lt;/span&gt;
+      &lt;/div&gt;
+      ...
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
         </section>
 
-        <!-- ========== LOCATORS OVERVIEW ========== -->
-        <section id="locators-basics">
-            <h2>2. Locators – Overview & Basic Types</h2>
-            <p>Locator = unique address of a web element. Selenium supports ID, Name, LinkText, PartialLinkText, ClassName, TagName.</p>
-            <table>
-                <thead><tr><th>Locator</th><th>Method</th><th>Example</th><th>Reliability</th></tr></thead>
-                <tbody>
-                    <tr><td>ID</td><td>By.id("id")</td><td>driver.findElement(By.id("search"))</td><td>⭐ Highest</td></tr>
-                    <tr><td>Name</td><td>By.name("name")</td><td>driver.findElement(By.name("search"))</td><td>⭐ High</td></tr>
-                    <tr><td>LinkText</td><td>By.linkText("exact")</td><td>driver.findElement(By.linkText("Tablets"))</td><td>✅ Good for &lt;a&gt;</td></tr>
-                    <tr><td>PartialLinkText</td><td>By.partialLinkText("partial")</td><td>driver.findElement(By.partialLinkText("Tab"))</td><td>⚠️ Avoid (ambiguous)</td></tr>
-                    <tr><td>ClassName</td><td>By.className("class")</td><td>driver.findElements(By.className("list-inline-item"))</td><td>🔹 Groups</td></tr>
-                    <tr><td>TagName</td><td>By.tagName("tag")</td><td>driver.findElements(By.tagName("a"))</td><td>🔸 Groups (links/images)</td></tr>
-                </tbody>
-            </table>
-            <div class="note-box">
-                💡 <strong>Critical note:</strong> If class attribute contains spaces (multiple classes), using <code>By.className("full class")</code> will fail. Use CSS selector with first part or attribute selector.<br>
-                Example: class="btn btn-primary" → use <code>.btn</code> or <code>[class*='btn']</code>.
-            </div>
-            <pre><code>// ID example
-WebElement logo = driver.findElement(By.id("logo"));
-// Name example
-driver.findElement(By.name("search")).sendKeys("MacBook");
-// LinkText
-driver.findElement(By.linkText("Tablets")).click();</code></pre>
+        <!-- ========== 2. BASIC LOCATORS ========= -->
+        <section id="basic-locators">
+            <h2>2. Basic Locators – ID, Name, LinkText, PartialLinkText, ClassName, TagName</h2>
+            <h3>2.1 ID Locator – Most Reliable</h3>
+            <pre><code>driver.findElement(By.id("txtUsername")).sendKeys("admin");</code></pre>
+            <h3>2.2 Name Locator</h3>
+            <pre><code>driver.findElement(By.name("txtUsername")).sendKeys("admin");</code></pre>
+            <h3>2.3 LinkText & PartialLinkText (only for &lt;a&gt;)</h3>
+            <pre><code>driver.findElement(By.linkText("Tablets")).click();   // preferred
+// Avoid partialLinkText if possible</code></pre>
+            <h3>2.4 ClassName Locator – for groups</h3>
+            <pre><code>List&lt;WebElement&gt; items = driver.findElements(By.className("list-inline-item"));</code></pre>
+            <div class="note-box">⚠️ If class contains spaces (multiple classes), <code>By.className</code> fails. Use CSS selector instead: <code>.firstClass</code>.</div>
+            <h3>2.5 TagName Locator – groups of same tag</h3>
+            <pre><code>driver.findElements(By.tagName("a"));   // all links</code></pre>
         </section>
 
-        <!-- ========== findElement vs findElements ========== -->
-        <section id="findelement-vs-findelements">
+        <!-- ========== 3. findElement vs findElements ========= -->
+        <section id="find-vs-findelements">
             <h2>3. findElement vs findElements – Detailed Comparison</h2>
             <table>
                 <thead><tr><th>Condition</th><th>findElement</th><th>findElements</th></tr></thead>
                 <tbody>
                     <tr><td>Single match</td><td>Returns WebElement</td><td>List with 1 element</td></tr>
-                    <tr><td>Multiple matches</td><td>Returns first element</td><td>List with all elements</td></tr>
-                    <tr><td>No match</td><td>Throws <code>NoSuchElementException</code></td><td>Empty list (size 0)</td></tr>
+                    <tr><td>Multiple matches</td><td>Returns first element</td><td>List of all elements</td></tr>
+                    <tr><td>No match</td><td>Throws NoSuchElementException</td><td>Empty list (size 0)</td></tr>
                 </tbody>
             </table>
-            <pre><code>// Safe check without exception
-List&lt;WebElement&gt; elems = driver.findElements(By.id("maybe-missing"));
-if(elems.size() > 0) {
-    elems.get(0).click();
-}</code></pre>
+            <pre><code>// safe check
+List&lt;WebElement&gt; elems = driver.findElements(By.id("maybeMissing"));
+if(elems.size() > 0) { elems.get(0).click(); }</code></pre>
         </section>
 
-        <!-- ========== CSS SELECTORS ========== -->
-        <section id="css-selectors-guide">
+        <!-- ========== 4. CSS SELECTORS ========= -->
+        <section id="css-guide">
             <h2>4. CSS Selectors – Complete Guide</h2>
-            <p>Faster than XPath, concise, based on tag, id, class, attributes.</p>
+            <p>Faster than XPath, concise. Four main combinations:</p>
             <table>
-                <thead><tr><th>Pattern</th><th>Example</th><th>CSS Syntax</th></tr></thead>
+                <thead><tr><th>Pattern</th><th>Example</th><th>Selector</th></tr></thead>
                 <tbody>
-                    <tr><td>Tag + ID</td><td>input#small-searchterms</td><td><code>By.cssSelector("input#small-searchterms")</code></td></tr>
-                    <tr><td>Tag + Class</td><td>input.search-box-text</td><td><code>By.cssSelector("input.search-box-text")</code></td></tr>
-                    <tr><td>Tag + Attribute</td><td>input[placeholder='Search']</td><td><code>By.cssSelector("input[placeholder='Search']")</code></td></tr>
-                    <tr><td>Tag+Class+Attr</td><td>input.search-box-text[name='q']</td><td><code>By.cssSelector("input.search-box-text[name='q']")</code></td></tr>
+                    <tr><td>Tag + ID</td><td>input#txtUsername</td><td><code>By.cssSelector("#txtUsername")</code></td></tr>
+                    <tr><td>Tag + Class</td><td>input.textInputContainer</td><td><code>By.cssSelector(".textInputContainer")</code></td></tr>
+                    <tr><td>Tag + Attribute</td><td>input[name='txtUsername']</td><td><code>By.cssSelector("[name='txtUsername']")</code></td></tr>
+                    <tr><td>Tag + Class + Attr</td><td>input.textInputContainer[name='txtUsername']</td><td><code>By.cssSelector(".textInputContainer[name='txtUsername']")</code></td></tr>
                 </tbody>
             </table>
-            <div class="diagram-box">
-                <div class="diagram-caption">🧪 Validate CSS selectors instantly: Chrome DevTools → Ctrl+F → paste your selector → shows matches count.</div>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='60' viewBox='0 0 300 60'%3E%3Crect width='300' height='60' fill='%23f1f5f9' rx='12'/%3E%3Ctext x='20' y='35' font-family='monospace' font-size='13' fill='%231e293b'%3E🔍 #small-searchterms → 1 match%3C/text%3E%3C/svg%3E" alt="DevTools search illustration" style="display:block; margin:0 auto; max-width:100%;">
+            <div class="diagram-card">
+                <div class="diagram-caption">🧪 Validate in DevTools: Ctrl+F → paste CSS selector → shows matches count.</div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='48' viewBox='0 0 320 48'%3E%3Crect width='320' height='48' fill='%23f1f5f9' rx='10'/%3E%3Ctext x='15' y='30' font-family='monospace' font-size='13' fill='%230f172a'%3E🔎 #small-searchterms → 1 of 1%3C/text%3E%3C/svg%3E" alt="DevTools validation preview">
             </div>
+            <pre><code>// Complete Java Example
+driver.findElement(By.cssSelector("#small-searchterms")).sendKeys("T-shirts");
+driver.findElement(By.cssSelector("input[placeholder='Search store']")).sendKeys("Laptop");</code></pre>
         </section>
 
-        <!-- ========== XPATH ABSOLUTE vs RELATIVE ========== -->
+        <!-- ========== 5. XPATH ABSOLUTE vs RELATIVE ========= -->
         <section id="xpath-absolute-relative">
             <h2>5. XPath – Absolute vs Relative</h2>
-            <p><strong>Absolute XPath (fragile):</strong> <code>/html/body/div[2]/form/input</code> — breaks on UI change.<br>
-            <strong>Relative XPath (recommended):</strong> <code>//input[@id='username']</code> — resilient, attribute-based.</p>
-            <pre><code>// Basic relative XPath syntax
-//tagname[@attribute='value']
-//*[@id='search']   // any tag with id='search'</code></pre>
+            <p><strong>Absolute XPath</strong> (fragile): starts with <code>/html/body/div[...]</code> — breaks on any UI change.<br>
+            <strong>Relative XPath</strong> (preferred): <code>//input[@id='txtUsername']</code> — attribute-based, resilient.</p>
+            <div class="note-box">Interview tip: Absolute XPath is rigid, relative XPath uses attributes and is stable.</div>
         </section>
 
-        <!-- ========== ADVANCED XPATH ========== -->
+        <!-- ========== 6. ADVANCED XPATH ========= -->
         <section id="advanced-xpath">
             <h2>6. Advanced XPath – Functions, Operators, Dynamic Elements</h2>
-            <h3>6.1 text() – exact match</h3>
+            <h3>text() – exact inner text</h3>
             <pre><code>//a[text()='Desktops']</code></pre>
-            <h3>6.2 contains() – partial match</h3>
+            <h3>contains() – partial match</h3>
             <pre><code>//input[contains(@placeholder,'Sea')]</code></pre>
-            <h3>6.3 starts-with()</h3>
-            <pre><code>//button[starts-with(@id,'temp_')]</code></pre>
-            <h3>6.4 AND / OR operators</h3>
-            <pre><code>//input[@name='search' and @type='text']</code></pre>
+            <h3>starts-with() – prefix matching</h3>
+            <pre><code>//div[starts-with(@id,'temp_')]</code></pre>
+            <h3>AND / OR operators</h3>
+            <pre><code>//input[@name='search' and @type='text']
+//button[@id='startBtn' or @id='stopBtn']</code></pre>
+            <h3>Handling dynamic attributes (real scenarios)</h3>
             <table>
-                <thead><tr><th>Dynamic Scenario</th><th>XPath Solution</th></tr></thead>
+                <thead><tr><th>Dynamic Pattern</th><th>XPath Solution</th></tr></thead>
                 <tbody>
-                    <tr><td>ID toggles between startBtn / stopBtn</td><td><code>//button[@id='startBtn' or @id='stopBtn']</code></td></tr>
+                    <tr><td>ID toggles startBtn/stopBtn</td><td><code>//button[@id='startBtn' or @id='stopBtn']</code></td></tr>
                     <tr><td>ID always contains "st"</td><td><code>//button[contains(@id,'st')]</code></td></tr>
                     <tr><td>Name prefix xyz001, xyz002</td><td><code>//*[starts-with(@name,'xyz')]</code></td></tr>
                 </tbody>
             </table>
-            <div class="note-box">✨ Chained XPath: if element has no attributes, locate parent <code>//div[@id='logo']/a/img</code></div>
+            <h3>Chained XPath (when element has no attributes)</h3>
+            <pre><code>//div[@id='logo']/a/img</code></pre>
+            <h3>Conditional XPath (comparisons)</h3>
+            <pre><code>//span[@class='price'][number(text()) > 100]</code></pre>
+            <h3>normalize-space() – ignore whitespace</h3>
+            <pre><code>//*[normalize-space()='Hello World']</code></pre>
         </section>
 
-        <!-- ========== XPATH AXES MASTERCLASS ========== -->
-        <section id="xpath-axes-master">
+        <!-- ========== 7. XPATH AXES MASTER ========= -->
+        <section id="axes-master">
             <h2>7. XPath Axes – Multi‑Directional DOM Traversal</h2>
-            <p>Navigate from a context node to parents, siblings, ancestors, descendants, following/preceding elements.</p>
-            <!-- AXES DIAGRAM (SVG) -->
-            <div class="diagram-box">
-                <div class="diagram-svg">
-                    <svg width="100%" height="160" viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="280" y="60" width="100" height="40" rx="6" fill="#facc15" fill-opacity="0.2" stroke="#facc15" stroke-width="2"/>
-                        <text x="330" y="85" text-anchor="middle" fill="#1e293b" font-weight="bold" font-size="12">Self (a)</text>
-                        <!-- Ancestor arrow up -->
-                        <path d="M330 60 L330 25 L280 25" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
-                        <text x="280" y="20" font-size="10" fill="#334155">ancestor::tr</text>
-                        <!-- child arrow down -->
-                        <path d="M360 100 L360 130 L410 130" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
-                        <text x="410" y="125" font-size="10" fill="#334155">child::td</text>
-                        <!-- following-sibling -->
-                        <path d="M380 75 L430 75 L430 110" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
-                        <text x="435" y="85" font-size="10" fill="#334155">following-sibling::tr</text>
-                        <!-- preceding-sibling -->
-                        <path d="M280 75 L230 75 L230 110" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
-                        <text x="175" y="85" font-size="10" fill="#334155">preceding-sibling::tr</text>
-                        <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#475569"/></marker></defs>
+            <p>Axes let you navigate from a known element (context node) to related nodes: parents, siblings, ancestors, descendants, following/preceding.</p>
+            
+            <!-- DOM Tree Diagram SVG -->
+            <div class="diagram-card">
+                <div class="tree-svg">
+                    <svg width="100%" height="180" viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="280" y="10" width="100" height="30" fill="#1e293b" rx="6" fill-opacity="0.9"/>
+                        <text x="330" y="30" fill="#facc15" font-size="10" text-anchor="middle">html</text>
+                        <line x1="330" y1="40" x2="330" y2="65" stroke="#94a3b8" stroke-width="1.5"/>
+                        <rect x="260" y="65" width="140" height="30" fill="#334155" rx="6"/>
+                        <text x="330" y="85" fill="#facc15" font-size="10" text-anchor="middle">body</text>
+                        <line x1="270" y1="95" x2="270" y2="120" stroke="#94a3b8"/>
+                        <line x1="390" y1="95" x2="390" y2="120" stroke="#94a3b8"/>
+                        <rect x="200" y="120" width="130" height="30" fill="#475569" rx="6"/>
+                        <text x="265" y="140" fill="#e2e8f0" font-size="10" text-anchor="middle">div#wrapper</text>
+                        <rect x="380" y="120" width="140" height="30" fill="#475569" rx="6"/>
+                        <text x="450" y="140" fill="#e2e8f0" font-size="10" text-anchor="middle">div#content</text>
+                        <rect x="450" y="155" width="110" height="20" fill="#facc15" rx="4"/>
+                        <text x="505" y="169" fill="#0f172a" font-size="9" text-anchor="middle">form#frmLogin</text>
+                        <text x="120" y="150" font-size="8" fill="#cbd5e1">ancestor::div</text>
+                        <text x="560" y="150" font-size="8" fill="#cbd5e1">descendant::input</text>
                     </svg>
                 </div>
-                <div class="diagram-caption">📐 XPath axes overview: Ancestor, Parent, Child, Following-sibling, Preceding-sibling from a given self node (Zomato link)</div>
+                <div class="diagram-caption">🌲 DOM Tree – ancestors, descendants, siblings, parent-child relationships</div>
             </div>
-            <h3>7.1 Axes Syntax & Examples</h3>
+
+            <h3>Axes syntax and examples (context: <code>//a[contains(text(),'Zomato')]</code>)</h3>
             <table>
-                <thead><tr><th>Axis</th><th>Syntax</th><th>Example (context: //a[contains(text(),'Zomato')])</th></tr></thead>
+                <thead><tr><th>Axis</th><th>Syntax</th><th>Example</th></tr></thead>
                 <tbody>
-                    <tr><td>Parent</td><td>parent::td</td><td><code>//a[contains(text(),'Zomato')]/parent::td</code></td></tr>
-                    <tr><td>Ancestor</td><td>ancestor::tr</td><td>gets whole table row</td></tr>
-                    <tr><td>Following</td><td>following::tr</td><td>all rows after current row</td></tr>
-                    <tr><td>Preceding</td><td>preceding::tr</td><td>rows before current row</td></tr>
-                    <tr><td>Following-sibling</td><td>following-sibling::tr</td><td>rows with same parent after</td></tr>
+                    <tr><td>self</td><td>self::a</td><td><code>//a[contains(text(),'Zomato')]/self::a</code></td></tr>
+                    <tr><td>parent</td><td>parent::td</td><td><code>//a[contains(text(),'Zomato')]/parent::td</code></td></tr>
+                    <tr><td>ancestor</td><td>ancestor::tr</td><td>gets entire table row</td></tr>
+                    <tr><td>following-sibling</td><td>following-sibling::tr</td><td>rows after current row (same parent)</td></tr>
+                    <tr><td>preceding-sibling</td><td>preceding-sibling::tr</td><td>rows before current row</td></tr>
+                    <tr><td>following</td><td>following::tr</td><td>all following rows in document</td></tr>
                 </tbody>
             </table>
-            <h3>7.2 Complete Java Example – Rediff Gainers</h3>
+            <div class="diagram-card">
+                <div class="axes-svg">
+                    <svg width="100%" height="120" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="250" y="40" width="100" height="34" fill="#facc15" fill-opacity="0.3" stroke="#facc15" stroke-width="1.5"/>
+                        <text x="300" y="62" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="11">Self (Zomato link)</text>
+                        <path d="M300 74 L300 100 L210 100" stroke="#475569" fill="none" stroke-width="1.8" marker-end="url(#arrowAxes)"/>
+                        <text x="150" y="95" font-size="9" fill="#334155">preceding-sibling::tr</text>
+                        <path d="M350 55 L420 55 L420 90" stroke="#475569" fill="none" stroke-width="1.8" marker-end="url(#arrowAxes)"/>
+                        <text x="425" y="85" font-size="9" fill="#334155">following-sibling::tr</text>
+                        <defs><marker id="arrowAxes" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#475569"/></marker></defs>
+                    </svg>
+                </div>
+                <div class="diagram-caption">📌 XPath Axes in action: navigating siblings and ancestors from a known element</div>
+            </div>
+
+            <h3>Complete Java Example – XPathAxesDemo (Rediff Gainers)</h3>
             <pre><code>WebDriver driver = new ChromeDriver();
 driver.get("https://money.rediff.com/gainers/bse/daily/groupa");
 String text = driver.findElement(By.xpath("//a[contains(text(),'Zomato')]/self::a")).getText();
-System.out.println("Self text: " + text);
+System.out.println("Self : " + text);
 // ancestor row
 WebElement row = driver.findElement(By.xpath("//a[contains(text(),'Zomato')]/ancestor::tr"));
 List&lt;WebElement&gt; followingRows = driver.findElements(By.xpath("//a[contains(text(),'Zomato')]/ancestor::tr/following::tr"));
-System.out.println("Following rows count: " + followingRows.size());
+System.out.println("Following rows: " + followingRows.size());
 driver.quit();</code></pre>
         </section>
 
-        <!-- ========== SELECTORHUB ========== -->
+        <!-- ========== 8. SELECTORHUB ========= -->
         <section id="selectorhub">
             <h2>8. SelectorHub – Auto‑Generation of Locators</h2>
-            <p>Browser extension that generates relative CSS, XPath, absolute XPath instantly. Validates uniqueness, handles shadow DOM.</p>
-            <div class="note-box">🔧 Pro tip: Use SelectorHub to accelerate building Page Object Models; always cross-check manual locators.</div>
+            <p>Browser extension that generates relative CSS, XPath, absolute XPath, and validates uniqueness — handles shadow DOM and hidden elements.</p>
+            <div class="note-box">✨ Productivity booster: Use SelectorHub to instantly build locators for Page Object Models, but always understand the underlying syntax.</div>
         </section>
 
-        <!-- ========== BEST PRACTICES ========== -->
+        <!-- ========== 9. BEST PRACTICES ========= -->
         <section id="best-practices">
-            <h2>9. Best Practices for Robust Locators</h2>
+            <h2>9. Best Practices for Writing Robust Locators</h2>
             <ul>
-                <li>✅ Prefer <strong>Relative XPath</strong> over absolute.</li>
-                <li>✅ Use <strong>ID/name</strong> when available (fastest).</li>
-                <li>✅ Avoid indexes <code>[2]</code> unless dynamic structure is fixed.</li>
-                <li>✅ Validate locators in DevTools (Ctrl+F) before scripting.</li>
-                <li>✅ For dynamic IDs, use <code>contains()</code> or <code>starts-with()</code>.</li>
-                <li>✅ Use <code>findElements</code> for optional elements to avoid exceptions.</li>
-                <li>✅ Always close browser with <code>driver.quit()</code> in <code>finally</code> block.</li>
+                <li>✅ Prefer Relative XPath over absolute</li>
+                <li>✅ Use unique attributes: ID > name > contains() > axes</li>
+                <li>✅ Avoid indexes (<code>[2]</code>) – they break with reordering</li>
+                <li>✅ Validate locators using DevTools (Ctrl+F) before scripting</li>
+                <li>✅ Use <code>findElements</code> for optional elements (no exception)</li>
+                <li>✅ Use explicit waits (<code>WebDriverWait</code>) instead of <code>Thread.sleep()</code></li>
+                <li>✅ Always close browser with <code>driver.quit()</code> in <code>finally</code> block</li>
             </ul>
         </section>
 
-        <!-- ========== QUICK REFERENCE ========== -->
-        <section id="quick-reference">
-            <h2>10. Quick Reference Cards</h2>
-            <h3>CSS selectors</h3>
-            <pre><code>#id           → By.cssSelector("#small-searchterms")
-.class        → By.cssSelector(".search-box-text")
-tag[attr]     → input[placeholder='Search']</code></pre>
-            <h3>XPath Functions</h3>
+        <!-- ========== 10. COMMON MISTAKES ========= -->
+        <section id="common-mistakes">
+            <h2>10. Common Mistakes & Corrections</h2>
             <table>
-                <thead><tr><th>Purpose</th><th>XPath</th></tr></thead>
+                <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
                 <tbody>
-                    <tr><td>Exact attribute</td><td><code>//input[@id='username']</code></td></tr>
-                    <tr><td>AND operator</td><td><code>//input[@type='text' and @name='user']</code></td></tr>
-                    <tr><td>Contains text</td><td><code>//span[contains(text(),'Success')]</code></td></tr>
-                    <tr><td>Normalize-space</td><td><code>//*[normalize-space()='Hello World']</code></td></tr>
+                    <tr><td>Absolute XPath: /html/body/div[3]/form</td><td>Relative: //form[@id='login']</td></tr>
+                    <tr><td>Forgetting @: //input[id='x']</td><td>//input[@id='x']</td></tr>
+                    <tr><td>Using text() on input fields</td><td>Use @value or getAttribute("value")</td></tr>
+                    <tr><td>Full class with spaces in CSS: div.class1 class2</td><td>Use .class1 or [class*='class1']</td></tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- ========== COMMON MISTAKES ========== -->
-        <section id="common-mistakes">
-            <h2>11. Common Mistakes & Corrections</h2>
-            <ul>
-                <li>❌ Using absolute XPath <code>/html/body/div[3]</code> → ✅ relative <code>//div[@class='content']</code></li>
-                <li>❌ Forgetting <code>@</code> in XPath: <code>//input[id='x']</code> → ✅ <code>//input[@id='x']</code></li>
-                <li>❌ Using <code>text()</code> on input fields → ✅ use <code>@value</code> or <code>getAttribute("value")</code></li>
-                <li>❌ Using class with spaces in CSS selector without dot → use <code>.first-part</code></li>
-            </ul>
+        <!-- ========== 11. QUICK REFERENCE CARDS ========= -->
+        <section id="quickref">
+            <h2>11. Quick Reference Cards</h2>
+            <h3>Basic Locators</h3>
+            <pre><code>By.id("search")           // ID
+By.name("search")         // Name
+By.linkText("Tablets")    // exact link
+By.className("list-item") // class (single)
+By.tagName("a")           // all links</code></pre>
+            <h3>CSS Selectors Patterns</h3>
+            <pre><code>#id                     → #small-searchterms
+.class                  → .search-box-text
+tag[attr='value']       → input[placeholder='Search']
+tag.class[attr='value'] → input.search-box-text[name='q']</code></pre>
+            <h3>XPath Functions & Axes</h3>
+            <pre><code>//input[@id='username']                 // exact attribute
+//a[text()='Logout']                    // exact text
+//div[contains(@class,'error')]         // contains
+//input/following-sibling::span         // next sibling
+//span/ancestor::form                   // parent form</code></pre>
+            <h3>findElement vs findElements summary</h3>
+            <pre><code>Single match → findElement = WebElement, findElements = List[1]
+No match → findElement throws exception, findElements = empty list</code></pre>
         </section>
 
-        <!-- ========== REFERENCES ========== -->
+        <!-- ========== 12. REFERENCES & FINAL ========= -->
         <section id="references">
             <h2>12. References & Additional Resources</h2>
             <ul>
                 <li><a href="https://youtu.be/BRzlyGXx13Q" target="_blank">XPath Axes video tutorial</a></li>
                 <li><a href="https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java" target="_blank">Maven Selenium dependency</a></li>
                 <li>Selenium 4 Relative Locators: <code>withTagName("div").above(element)</code></li>
+                <li>SelectorHub Chrome extension – auto locator generation</li>
             </ul>
+            <div class="note-box">
+                💡 <strong>Final Words:</strong> Mastering locators is the foundation of robust Selenium automation. Start with basic locators (ID, name), then move to CSS selectors (faster, concise), then XPath (most powerful). For complex dynamic pages, leverage XPath axes and tools like SelectorHub. Always validate your locators before coding, prefer relative XPath over absolute, and use explicit waits.
+            </div>
         </section>
 
-        <!-- ========== EXTRA SECTION FOR AUTOMATION ENGINEERS ========== -->
-        <section id="extra-automation">
-            <h2>🚀 Extra for Automation Engineers: Advanced Tips</h2>
-            <div class="note-box">
-                💡 <strong>Page Object Model + robust locators:</strong> Store locators as constants (e.g., <code>By.xpath("//button[@id='submit']")</code>) and leverage explicit waits: <code>WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));<br>
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dynamic")));</code>
-            </div>
-            <p><span class="badge-tip">Shadow DOM</span> Use <code>getShadowRoot()</code> in Selenium 4 to access elements inside shadow roots: <code>WebElement shadowHost = driver.findElement(By.cssSelector("custom-element"));<br>
-            SearchContext shadowRoot = shadowHost.getShadowRoot();</code></p>
-            <div class="diagram-box">
-                <div class="diagram-caption">📊 Image placeholder: Diagram of cross-browser automation pipeline (Selenium Grid / Cloud)</div>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='80' viewBox='0 0 400 80'%3E%3Crect width='400' height='80' fill='%23eef2ff' rx='12'/%3E%3Ctext x='20' y='45' font-family='sans-serif' font-size='13' fill='%231e293b'%3E🧪 Test script → WebDriver → Browser (Chrome/Firefox/Edge) → Assertions%3C/text%3E%3C/svg%3E" alt="automation pipeline diagram">
-            </div>
-            <p>🎯 Master XPath axes and CSS selectors to handle complex dynamic tables, infinite scrolling, and modern SPAs. Use <strong>normalize-space()</strong> to clean whitespace flakiness.</p>
-            <pre><code>// Handle dynamic tables with axes: get price of product in same row
-String price = driver.findElement(By.xpath("//a[text()='Zomato']/ancestor::tr/td[4]")).getText();</code></pre>
-        </section>
+        <!-- extra diagram for visual summary -->
+        <div class="diagram-card">
+            <svg width="100%" height="70" viewBox="0 0 500 70" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="15" width="90" height="40" rx="10" fill="#1e293b" stroke="#facc15"/>
+                <text x="55" y="40" fill="#facc15" font-size="11" text-anchor="middle">ID/Name</text>
+                <line x1="100" y1="35" x2="130" y2="35" stroke="#facc15" stroke-width="2"/>
+                <rect x="130" y="15" width="90" height="40" rx="10" fill="#1e293b" stroke="#facc15"/>
+                <text x="175" y="40" fill="#facc15" font-size="11" text-anchor="middle">CSS</text>
+                <line x1="220" y1="35" x2="250" y2="35" stroke="#facc15" stroke-width="2"/>
+                <rect x="250" y="15" width="90" height="40" rx="10" fill="#1e293b" stroke="#facc15"/>
+                <text x="295" y="40" fill="#facc15" font-size="11" text-anchor="middle">XPath</text>
+                <line x1="340" y1="35" x2="370" y2="35" stroke="#facc15" stroke-width="2"/>
+                <rect x="370" y="15" width="110" height="40" rx="10" fill="#1e293b" stroke="#facc15"/>
+                <text x="425" y="40" fill="#facc15" font-size="11" text-anchor="middle">XPath Axes</text>
+            </svg>
+            <div class="diagram-caption">📍 Progression: from simple locators to advanced axes for 100% coverage</div>
+        </div>
 
         <footer>
-            <p>📄 Selenium WebDriver Ultimate Guide — Built for Automation Engineers, QA & Developers | Based on Days 21-25 + real-world corrections | All code examples are production-ready.</p>
-            <p>✨ Practice on live websites using DevTools | Use SelectorHub | Prefer robust XPath/CSS and always close resources</p>
+            <p>📘 Selenium Ultimate Guide — All topics from basic locators to advanced axes, code examples, diagrams, and best practices. For Automation Engineers, Testers & Developers.</p>
+            <p>✅ Validate locators, write robust tests, and master XPath axes for complex tables & dynamic apps.</p>
         </footer>
     </main>
 </div>
