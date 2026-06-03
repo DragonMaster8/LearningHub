@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium WebDriver Foundations | Complete Automation Engineer Guide</title>
+    <!-- External CSS (provided styles.css will be available in the project) -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* additional micro-styles for diagrams only, does not override core */
+        .arch-svg, .flow-svg {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            overflow-x: auto;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .diagram-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #475569;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .badge-new {
+            background: #facc15;
+            color: #0f172a;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-left: 0.75rem;
+            vertical-align: middle;
+        }
+        .sidebar nav a.active {
+            color: #facc15;
+            border-left-color: #facc15;
+            background: #2d3a4e;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ================= SIDEBAR (complete TOC) ================= -->
+    <aside class="sidebar">
+        <h2>📘 Selenium Guide</h2>
+        <nav>
+            <ul>
+                <li><a href="#sec-what">🔍 1. What is WebDriver?</a></li>
+                <li><a href="#sec-arch">🏛️ 1.2 Architecture (Interface)</a></li>
+                <li><a href="#sec-api">📡 1.3 WebDriver as API</a></li>
+                <li><a href="#sec-setup">⚙️ 2. Maven Environment</a></li>
+                <li><a href="#sec-drivers">🚗 3. Driver Executables</a></li>
+                <li><a href="#sec-first-test">🧪 4. First Automation Test</a></li>
+                <li><a href="#sec-close-quit">❌ close() vs quit()</a></li>
+                <li><a href="#sec-crossbrowser">🌐 5. Cross‑Browser Testing</a></li>
+                <li><a href="#sec-insights">💡 6. Practical Insights & Interview Qs</a></li>
+                <li><a href="#sec-checklist">✅ 7. Setup Checklist</a></li>
+                <li><a href="#extra-diagrams">📊 Visual Diagrams</a></li>
+                <li><a href="#extra-advanced">🚀 Selenium 4 Advanced</a></li>
+            </ul>
+        </nav>
+        <div style="margin-top: 2rem; font-size: 0.8rem; color: #94a3b8; border-top: 1px solid #334155; padding-top: 1rem;">
+            <p>⚡ Best practice: <br> WebDriver interface + Selenium Manager</p>
+            <p>📌 Always use <code>driver.quit()</code></p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT (ALL ORIGINAL TOPICS COVERED) ================= -->
+    <main class="main-content">
+        <h1>Selenium WebDriver Foundations: <br> A Complete Guide for Automation Engineers</h1>
+        <div class="subhead">This document consolidates all essential Selenium WebDriver concepts, from architecture and environment setup to writing and executing cross‑browser tests. Designed for Automation Engineers, Testers, and Developers who want a solid, practical understanding of Selenium WebDriver with modern best practices.</div>
+
+        <!-- ========== SECTION 1 (EXACT THREE PERSPECTIVES) ========== -->
+        <section id="sec-what">
+            <h2>1. What is Selenium WebDriver?</h2>
+            <p>Understanding WebDriver requires viewing it from three perspectives. These are also frequent interview topics.</p>
+            
+            <h3>1.1 WebDriver is a Component of the Selenium Suite</h3>
+            <p>The Selenium ecosystem consists of three main components:</p>
+            <ul>
+                <li><strong>Selenium IDE</strong> – a record‑and‑playback tool for quick prototyping.</li>
+                <li><strong>Selenium WebDriver</strong> – the core automation engine that directly controls the browser.</li>
+                <li><strong>Selenium Grid</strong> – allows parallel and distributed test execution across multiple machines and browsers.</li>
+            </ul>
+            <p>WebDriver is the component you will use for all real‑world test automation.</p>
+            
+            <h3>1.2 WebDriver is a Java Interface (Technical Foundation)</h3>
+            <p>In Java, an interface is a blueprint that contains method signatures without implementation. The WebDriver interface defines all standard automation methods such as <code>get()</code>, <code>close()</code>, <code>getTitle()</code>, <code>findElement()</code>, etc.</p>
+            <p>Each browser has its own driver class that implements the WebDriver interface. Because all browser‑specific classes follow the same contract, method names and purposes are identical across Chrome, Firefox, Edge, Safari, and others.</p>
+            <p><strong>The true architecture (Selenium 4.x, corrected):</strong></p>
+            <pre>
+SearchContext          (interface – root; provides findElement / findElements)
+   ↑
+WebDriver             (interface – extends SearchContext; defines browser‑control methods)
+   ↑
+RemoteWebDriver       (class – implements WebDriver; the base for all browser drivers)
+   ↑
+   ├── ChromiumDriver (class – common base for Chromium‑based browsers)
+   │        ↑
+   │   ┌────┴─────┐
+   │ ChromeDriver  EdgeDriver
+   │
+   ├── FirefoxDriver (class – extends RemoteWebDriver directly)
+   ├── SafariDriver   (class – extends RemoteWebDriver directly)
+   └── ... (other browsers)
+            </pre>
+            <p>This design allows a single WebDriver variable to hold any browser’s driver object (polymorphism). Example:</p>
+            <pre><code>WebDriver driver = new ChromeDriver();   // works
+WebDriver driver = new FirefoxDriver();  // works
+WebDriver driver = new EdgeDriver();     // works</code></pre>
+            <p>The code you write remains browser‑agnostic.</p>
+        </section>
+
+        <section id="sec-api">
+            <h3>1.3 WebDriver is an API (Application Programming Interface)</h3>
+            <p>An API acts as an intermediary that receives requests from a client, processes them, and returns a response. In automation context, the WebDriver library acts as the API between your Java test code (client) and the browser (execution target). You call <code>driver.get("url");</code> WebDriver translates that command into a browser‑specific protocol (now the W3C WebDriver standard) and instructs the browser. The browser’s response (e.g., current URL or page title) is sent back to your code.</p>
+            <div class="note-box">
+                <strong>Why this matters for you:</strong> WebDriver is not just a tool; it’s an interface that guarantees a consistent programming model, and the API nature means you can swap browsers without changing your test logic.
+            </div>
+        </section>
+
+        <!-- ========== SECTION 2: MAVEN SETUP ========== -->
+        <section id="sec-setup">
+            <h2>2. Environment Setup – The Right Way with Maven</h2>
+            <p>As an automation engineer, you should avoid manual JAR management. Maven handles dependency resolution, version upgrades, and transitive dependencies automatically.</p>
+            <h3>2.1 Creating a Maven Project in Eclipse</h3>
+            <ul>
+                <li>Launch Eclipse and choose/create a workspace (e.g., C:\Automation\SeleniumWebDriver).</li>
+                <li>Create a Maven project: <code>File → New → Other → Maven → Maven Project</code></li>
+                <li>Check “Create a simple project (skip archetype selection)”.</li>
+                <li>Fill in: Group Id: e.g., <code>com.automation</code>, Artifact Id: e.g., <code>selenium-webdriver</code>.</li>
+                <li>Project structure: <code>src/main/java</code>, <code>src/main/resources</code>, <code>src/test/java</code>, <code>src/test/resources</code>.</li>
+                <li>You may delete src/main/* folders if not needed.</li>
+            </ul>
+            <h3>2.2 Adding Selenium WebDriver Dependency</h3>
+            <p>Open <code>pom.xml</code> and add:</p>
+            <pre><code>&lt;dependencies&gt;
+    &lt;!-- Selenium Java --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+        &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+        &lt;version&gt;4.18.1&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+            <p>Update project: Right‑click project → Maven → Update Project. Maven downloads all required JARs.</p>
+            <h3>2.3 Adding TestNG (Optional but Recommended)</h3>
+            <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.testng&lt;/groupId&gt;
+    &lt;artifactId&gt;testng&lt;/artifactId&gt;
+    &lt;version&gt;7.9.0&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+            <p><strong>Best Practice:</strong> Always keep your pom.xml clean and version numbers up‑to‑date.</p>
+        </section>
+
+        <!-- ========== SECTION 3: DRIVER EXECUTABLES ========== -->
+        <section id="sec-drivers">
+            <h2>3. Driver Executables and Browser Invocation</h2>
+            <h3>3.1 The Need for Driver Proxies</h3>
+            <p>Browsers have strict security; Selenium cannot directly command them. Instead, each browser vendor provides a driver executable that acts as a bridge:</p>
+            <pre>Your Java Code  →  Driver Executable  →  Browser
+Chrome → chromedriver (or chromedriver.exe)
+Firefox → geckodriver
+Edge → msedgedriver</pre>
+            <h3>3.2 Two Ways to Provide the Driver</h3>
+            <p><strong>A. Manual Setup – System.setProperty() (Traditional)</strong><br>
+            Download the matching driver, extract to a folder, set property:</p>
+            <pre><code>System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();</code></pre>
+            <p><strong>Drawbacks:</strong> Manual version matching, updates manual, path errors common.</p>
+            <p><strong>B. Automatic Management – Selenium Manager (Modern, Recommended)</strong><br>
+            From Selenium 4.6.0+, Selenium includes Selenium Manager. It detects your installed browser version, automatically downloads the correct driver, caches it, and uses it.</p>
+            <pre><code>WebDriver driver = new ChromeDriver();  // No property setting needed!</code></pre>
+            <p>This is the preferred approach for most development and CI/CD environments. When to fall back to manual? When the machine has no internet access or you must pin a specific driver version.</p>
+            <h3>3.3 macOS Security Workaround</h3>
+            <p>Right‑click (or Control‑click) the driver file → Open. In the dialog, click Open to grant an exception. Alternatively, terminal: <code>xattr -d com.apple.quarantine /path/to/driver</code>.</p>
+        </section>
+
+        <!-- ========== SECTION 4: FIRST TEST + close/quit ========== -->
+        <section id="sec-first-test">
+            <h2>4. Writing Your First Automation Test</h2>
+            <h3>4.1 Creating the Test Class</h3>
+            <p>Inside <code>src/test/java</code>, create a class <code>SeleniumIntroduction</code> with main method.</p>
+            <pre><code>import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SeleniumIntroduction {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://rahulshettyacademy.com");
+        String pageTitle = driver.getTitle();
+        System.out.println("Page Title: " + pageTitle);
+        String currentUrl = driver.getCurrentUrl();
+        System.out.println("Current URL: " + currentUrl);
+        driver.quit();
+    }
+}</code></pre>
+            <h3>4.3 Understanding Each Method</h3>
+            <ul>
+                <li><code>driver.get("URL")</code> – Navigates to the specified URL.</li>
+                <li><code>driver.getTitle()</code> – Returns the page title as a String.</li>
+                <li><code>driver.getCurrentUrl()</code> – Returns the exact URL the browser is currently displaying.</li>
+                <li><code>driver.close()</code> – Closes the current browser window/tab that WebDriver is focused on.</li>
+                <li><code>driver.quit()</code> – Closes all windows opened by the WebDriver session and shuts down the driver process.</li>
+            </ul>
+        </section>
+
+        <section id="sec-close-quit">
+            <h3>4.4 close() vs quit() – Critical Interview Question</h3>
+            <table>
+                <thead><tr><th>Feature</th><th>driver.close()</th><th>driver.quit()</th></tr></thead>
+                <tbody>
+                    <tr><td>Scope</td><td>Closes only the current focused window</td><td>Closes all windows/tabs</td></tr>
+                    <tr><td>Session</td><td>Does not end the WebDriver session</td><td>Ends the session completely</td></tr>
+                    <tr><td>When to use</td><td>Single‑window scripts (rare)</td><td>Always preferred; prevents hanging processes</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Automation Engineer’s rule:</strong> Always use <code>driver.quit()</code> unless you have a very specific reason to keep other windows open. It ensures a clean test teardown.</p>
+            <h3>4.5 Best Practice: Declare Driver as WebDriver type</h3>
+            <pre><code>WebDriver driver = new ChromeDriver();      // Recommended (program to interface)</code></pre>
+            <p>Using WebDriver as the reference type limits visible methods to those defined in the WebDriver interface, making your code easily portable to other browsers.</p>
+        </section>
+
+        <!-- ========== SECTION 5: CROSS BROWSER ========== -->
+        <section id="sec-crossbrowser">
+            <h2>5. Cross‑Browser Testing – One Code, Many Browsers</h2>
+            <p>The real power of Selenium lies in writing a test once and running it on different browsers with minimal changes.</p>
+            <h3>5.1 Running on Firefox</h3>
+            <pre><code>WebDriver driver = new FirefoxDriver();
+driver.get("https://rahulshettyacademy.com");
+System.out.println(driver.getTitle());
+driver.quit();</code></pre>
+            <h3>5.2 Running on Microsoft Edge</h3>
+            <pre><code>WebDriver driver = new EdgeDriver();
+driver.get("https://rahulshettyacademy.com");
+System.out.println(driver.getTitle());
+driver.quit();</code></pre>
+            <h3>5.3 Running on All Three Browsers (Example with reusable method)</h3>
+            <pre><code>public class CrossBrowserDemo {
+    public static void main(String[] args) {
+        WebDriver driver;
+        driver = new ChromeDriver(); runTest(driver, "Chrome");
+        driver = new FirefoxDriver(); runTest(driver, "Firefox");
+        driver = new EdgeDriver(); runTest(driver, "Edge");
+    }
+    public static void runTest(WebDriver driver, String browser) {
+        driver.get("https://rahulshettyacademy.com");
+        System.out.println(browser + " - Title: " + driver.getTitle());
+        driver.quit();
+    }
+}</code></pre>
+            <h3>5.4 A Note on Internet Explorer</h3>
+            <p>Internet Explorer (IE) is deprecated. Selenium’s InternetExplorerDriver is unreliable and slow. Always use Microsoft Edge for Microsoft‑based automation. Modern enterprise automation targets Chrome, Firefox, and Edge only.</p>
+        </section>
+
+        <!-- ========== SECTION 6: PRACTICAL INSIGHTS ========== -->
+        <section id="sec-insights">
+            <h2>6. Practical Insights for Automation Engineers, Testers & Developers</h2>
+            <h3>6.1 Summary of Key Interview Questions</h3>
+            <ul>
+                <li><strong>What is Selenium WebDriver?</strong> Answer covering the three definitions: a Selenium component, a Java interface, and an API.</li>
+                <li><strong>Why is WebDriver designed as an interface?</strong> To enforce a common contract across all browsers, enabling cross‑browser testing without code changes.</li>
+                <li><strong>Why do we write WebDriver driver = new ChromeDriver(); instead of ChromeDriver driver = new ChromeDriver();?</strong> It follows the “program to interface” principle, hides browser‑specific methods, and makes the code browser‑independent.</li>
+                <li><strong>Difference between close() and quit()?</strong> close() shuts the current window; quit() shuts all windows and terminates the session.</li>
+                <li><strong>What is the role of a driver executable (e.g., chromedriver)?</strong> It acts as a proxy between Selenium code and the browser, translating commands.</li>
+                <li><strong>What is Selenium Manager?</strong> A built‑in tool (since Selenium 4.6.0) that automatically downloads and manages browser drivers, removing the need for manual System.setProperty().</li>
+            </ul>
+            <h3>6.2 Developer & Tester Best Practices</h3>
+            <ul>
+                <li>Maven always: Never download JARs manually.</li>
+                <li>Use Selenium Manager: Simplifies setup and avoids version mismatch headaches.</li>
+                <li>driver.quit() in teardown: Always quit the driver at the end of a test (or in @AfterMethod when using TestNG) to avoid resource leaks.</li>
+                <li>Print intermediate values: Use System.out.println to debug page titles, URLs, and element attributes.</li>
+                <li>Keep the same code for all browsers: Leverage polymorphism; avoid browser‑specific code paths.</li>
+                <li>Stay updated: Selenium evolves rapidly. Check Selenium.dev for the latest version.</li>
+                <li>Assertions are next: Replace if statements with proper assertion libraries (TestNG or JUnit) in real frameworks.</li>
+            </ul>
+            <h3>6.3 What’s Coming Next?</h3>
+            <p>Locating Web Elements: Using ID, name, class, CSS selectors, XPath. Performing Actions: click(), sendKeys(), dropdown handling, waits. Building a robust framework: Page Object Model, TestNG integration, reporting, data‑driven tests.</p>
+        </section>
+
+        <!-- ========== SECTION 7: CHECKLIST ========== -->
+        <section id="sec-checklist">
+            <h2>7. Complete Setup Checklist for a New Automation Project</h2>
+            <ul>
+                <li>✅ Install Java JDK (8, 11, or 17) and Eclipse/IntelliJ.</li>
+                <li>✅ Create a Maven project in the IDE.</li>
+                <li>✅ Add selenium-java dependency in pom.xml (latest version).</li>
+                <li>✅ Add TestNG dependency (optional, for later use).</li>
+                <li>✅ Update Maven project to download all JARs.</li>
+                <li>✅ Install browsers (Chrome, Firefox, Edge).</li>
+                <li>✅ Write the first test using WebDriver driver = new ChromeDriver(); (Selenium Manager handles the driver automatically).</li>
+                <li>✅ Execute the test; verify the browser opens, navigates, and closes.</li>
+                <li>✅ Extend the script to capture title and URL, and implement driver.quit() for cleanup.</li>
+            </ul>
+            <p>With these foundations, you are ready to dive deeper into element interaction, synchronisation, and framework design.</p>
+        </section>
+
+        <!-- ========== EXTRA DIAGRAMS (VISUAL SUPPLEMENT) ========== -->
+        <section id="extra-diagrams">
+            <h2>📊 Visual Architecture & Selenium Manager Workflow</h2>
+            <div class="arch-svg">
+                <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="180" height="50" rx="8" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+                    <text x="110" y="50" fill="#facc15" font-size="14" text-anchor="middle" font-weight="bold">SearchContext (I)</text>
+                    <line x1="110" y1="70" x2="110" y2="100" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="20" y="100" width="180" height="50" rx="8" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+                    <text x="110" y="130" fill="#e2e8f0" font-size="14" text-anchor="middle">WebDriver (I)</text>
+                    <line x1="110" y1="150" x2="110" y2="180" stroke="#cbd5e1" stroke-width="2"/>
+                    <rect x="20" y="180" width="180" height="50" rx="8" fill="#0f172a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="110" y="210" fill="#facc15" font-size="13" text-anchor="middle">RemoteWebDriver (C)</text>
+                    <line x1="110" y1="230" x2="110" y2="260" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="110" y1="260" x2="40" y2="290" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="110" y1="260" x2="180" y2="290" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="110" y1="260" x2="320" y2="290" stroke="#94a3b8" stroke-width="2"/>
+                    <rect x="20" y="290" width="120" height="40" rx="6" fill="#334155"/>
+                    <text x="80" y="315" fill="#e2e8f0" font-size="12" text-anchor="middle">ChromeDriver</text>
+                    <rect x="160" y="290" width="120" height="40" rx="6" fill="#334155"/>
+                    <text x="220" y="315" fill="#e2e8f0" font-size="12" text-anchor="middle">EdgeDriver</text>
+                    <rect x="300" y="290" width="130" height="40" rx="6" fill="#334155"/>
+                    <text x="365" y="315" fill="#e2e8f0" font-size="12" text-anchor="middle">FirefoxDriver</text>
+                    <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#facc15"/></marker></defs>
+                    <text x="480" y="130" fill="#64748b" font-size="12">(I) = Interface, (C) = Class</text>
+                </svg>
+                <div class="diagram-caption">Figure: WebDriver interface hierarchy & browser classes (Selenium 4)</div>
+            </div>
+            <div class="flow-svg">
+                <svg viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="140" height="45" rx="8" fill="#1e293b" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="90" y="48" fill="#facc15" font-size="13" text-anchor="middle">Test starts</text>
+                    <line x1="160" y1="42" x2="200" y2="42" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="210" y="20" width="160" height="45" rx="8" fill="#2d3a4e" stroke="#94a3b8"/>
+                    <text x="290" y="48" fill="#e2e8f0" font-size="12" text-anchor="middle">Selenium Manager</text>
+                    <line x1="370" y1="42" x2="410" y2="42" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="420" y="20" width="160" height="45" rx="8" fill="#334155" stroke="#a0aec0"/>
+                    <text x="500" y="48" fill="#e2e8f0" font-size="12" text-anchor="middle">Detects browser version</text>
+                    <line x1="580" y1="42" x2="620" y2="42" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="630" y="20" width="130" height="45" rx="8" fill="#0f172a" stroke="#facc15"/>
+                    <text x="695" y="48" fill="#facc15" font-size="12" text-anchor="middle">Driver cached/launched</text>
+                    <line x1="695" y1="65" x2="695" y2="100" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="550" y="100" width="290" height="45" rx="8" fill="#facc15" stroke="#0f172a"/>
+                    <text x="695" y="128" fill="#0f172a" font-size="13" font-weight="bold" text-anchor="middle">Browser executes WebDriver commands</text>
+                    <defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#facc15"/></marker></defs>
+                </svg>
+                <div class="diagram-caption">Automated driver management with Selenium Manager (Selenium 4.6+)</div>
+            </div>
+        </section>
+
+        <!-- ========== ADVANCED SELENIUM 4 FEATURES (MORE INFO) ========== -->
+        <section id="extra-advanced">
+            <h2>🚀 Selenium 4 Enhancements & Advanced Concepts</h2>
+            <div class="note-box">
+                <strong>🔥 Relative Locators</strong> — <code>above()</code>, <code>below()</code>, <code>toLeftOf()</code>, <code>toRightOf()</code>, <code>near()</code>.
+                <pre><code>WebElement element = driver.findElement(withTagName("button").below(By.id("password")));</code></pre>
+            </div>
+            <h3>🕒 Modern Waits: WebDriverWait & FluentWait</h3>
+            <pre><code>WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("submit")));</code></pre>
+            <h3>🔄 Selenium Grid 4: Hubless & Distributed Execution</h3>
+            <p>Grid 4 supports fully distributed mode, observability, and easier dockerization. Allows parallel execution across different OS and browsers.</p>
+            <table>
+                <thead><tr><th>Feature</th><th>Selenium 3</th><th>Selenium 4</th></tr></thead>
+                <tbody>
+                    <tr><td>Protocol</td><td>JSON Wire + W3C</td><td>Full W3C WebDriver standard</td></tr>
+                    <tr><td>Driver Management</td><td>Manual / 3rd party</td><td>Built‑in Selenium Manager</td></tr>
+                    <tr><td>Relative Locators</td><td>❌ Not available</td><td>✅ Native support</td></tr>
+                    <tr><td>Chrome DevTools Protocol</td><td>Limited</td><td>Deep integration (network interception, performance metrics)</td></tr>
+                </tbody>
+            </table>
+            <h3>📌 Best Practice: Page Object Model (POM) + TestNG</h3>
+            <p>POM centralizes element locators, improving maintainability. Combine with TestNG data providers for data‑driven testing.</p>
+            <div class="note-box">
+                💡 <strong>Did you know?</strong> Selenium 4 provides improved window/tab management using <code>driver.switchTo().newWindow(WindowType.TAB)</code>.
+            </div>
+        </section>
+
+        <footer>
+            <p>© Selenium WebDriver Foundations — Complete Reference for Automation Engineers. Built with Maven + Selenium 4. Latest best practices, Selenium Manager, cross-browser strategies. 🧪 Keep testing, keep automating.</p>
+            <p>Referenced official Selenium documentation & community guidelines. Updated with Selenium 4.18+ insights.</p>
+        </footer>
+    </main>
+</div>
+</body>
+</html>
